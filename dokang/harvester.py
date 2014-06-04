@@ -9,7 +9,6 @@ from __future__ import unicode_literals
 
 import os
 import logging
-import sys
 
 from bs4 import BeautifulSoup
 
@@ -54,7 +53,6 @@ def harvest_file(path):
     content = content.replace("¶", "")
     title = title.strip()
     content = content.strip()
-    path = path.decode(sys.getfilesystemencoding() or 'utf-8')
     return {
         'title': title,
         'content': content,

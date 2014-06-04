@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2011-2014 Polyconseil SAS. All rights reserved.
+
 from __future__ import unicode_literals
 
 import argparse
@@ -11,7 +12,7 @@ from dokang.backends import whoosh
 from dokang import harvester
 from dokang.utils import load_doc_sets
 from dokang.version import VERSION
-from dokang.compat import ConfigParser
+from dokang import compat
 
 logger = logging.getLogger("dokang")
 
@@ -46,12 +47,14 @@ def index(settings, only_doc_set=None):
         indexer.index_documents(documents)
 
 def search(settings, query):
+    if isinstance(query, bytes):
+        query = query.decode(sys.stdin.encoding)
     index_path = settings['dokang.index_path']
     searcher = whoosh.WhooshSearcher(index_path)
     hits = list(searcher.search(query, limit=None))
-    print "Found %d results." % len(hits)
+    compat.print_to_stdout("Found %d results." % len(hits))
     for hit in hits:
-        print("[{set}] {title}".format(**hit).encode(sys.stdout.encoding))
+        compat.print_to_stdout("[{set}] {title}".format(**hit))
 
 
 def parse_args(args):
@@ -92,7 +95,7 @@ def parse_args(args):
 
 def load_settings(path):
     here = os.path.abspath(os.path.dirname(path))
-    config = ConfigParser(defaults={'here': here})
+    config = compat.ConfigParser(defaults={'here': here})
     config.read(path)
     settings = dict(config.items('app:main'))
     handler = logging.StreamHandler()
