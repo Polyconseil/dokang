@@ -104,7 +104,7 @@ client:
 
 Providing the configuration file in every command may be
 cumbersome. To work around that, you may define a ``DOKANG_SETTINGS``
-environment variable:
+environment variable and then omit the ``--settings`` option:
 
 .. code:: bash
 
