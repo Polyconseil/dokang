@@ -26,7 +26,7 @@ class WhooshIndexer(object):
         # FIXME: use NGRAM instead of TEXT?
         # FIXME: play with 'field_boost' parameter
         schema = Schema(
-            id=ID(stored=False, unique=True),
+            uid=ID(stored=False, unique=True),
             title=TEXT(stored=True),
             content=TEXT(stored=False),
             path=ID(stored=True),
@@ -37,13 +37,14 @@ class WhooshIndexer(object):
         create_in(self.index_path, schema)
 
     def index_documents(self, documents):
-        """Add documents to the index."""
+        """Add or update documents in the index."""
         index = open_dir(self.index_path)
         writer = index.writer()
         for document in documents:
             # FIXME: store file last modification time, so that we can
             # update (or not update) an existing document.
-            writer.add_document(
+            writer.update_document(
+                uid=':'.join((document['set'], document['path'])),
                 title=document['title'],
                 content=document['content'],
                 path=document['path'],
