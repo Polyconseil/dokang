@@ -99,7 +99,8 @@ def load_settings(path):
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
     handler.setFormatter(formatter)
     logger.addHandler(handler)
-    logger.setLevel(logging.INFO)
+    log_level = config.get('logger_dokang', 'level')
+    logger.setLevel(getattr(logging, log_level))
     settings = load_doc_sets(settings)
     return settings
 
