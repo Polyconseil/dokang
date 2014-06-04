@@ -1,0 +1,33 @@
+<layout metal:use-macro="api.layout">
+<metal:content metal:fill-slot="content">
+
+<div class="header">
+    <form class="jump-form">
+      <select onchange="window.location = this[this.selectedIndex].value;">
+        <option>Jump to documentation&hellip;</option>
+        <option tal:repeat="doc_set doc_sets"
+                value="${ doc_set['url'] }">${ doc_set['title'] }</option>
+      </select>
+    </form>
+    <form  class="search-form" method="get">
+      <input type="text" name="query" value="${ query }">
+      <input type="submit" value="search">
+    </form>
+</div>
+
+<div class="results">
+  <tal:if tal:condition="query">
+    <p><strong>${ len(results) }</strong> results.</p>
+  </tal:if>
+
+<ol tal:condition="results">
+  <li tal:repeat="hit results">
+    <a href="${ api.hit_url(hit) }">${ hit['title'] }</a>
+    <span class="docset">&mdash; ${ (hit['doc_set_title']) }</span>
+  </li>
+</ol>
+
+</div>
+
+</metal:content>
+</layout>

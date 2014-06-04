@@ -1,0 +1,5 @@
+beautifulsoup4==4.3.2
+chameleon==2.16
+pyramid==1.5
+pyramid-chameleon==0.1
+whoosh==2.6.0

@@ -1,0 +1,56 @@
+body, 
+p, div, ol, li,
+form, input
+img {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #fcfc;
+    color: #404040;
+    font-size: 100%; /* 16px */
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+a {
+    text-decoration: none;
+    color: #2980b9;
+}
+
+.header {
+    background-color: #2980b9;
+    color: #fcfcfc;
+}
+
+.jump-form {
+    float: right;
+}
+
+.search-form, .jump-form {
+    padding: 1em;
+}
+
+.search-form input, .jump-form select {
+    font-size: 1.1em;
+}
+
+.results {
+    padding: 1em;
+}
+
+.results li {
+    margin-left: 1em;
+    padding-bottom: 1em;
+}
+
+.docset {
+    color: #999;
+}

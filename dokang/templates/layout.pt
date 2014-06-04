@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal">
+<head>
+  <title>Dokang</title>
+  <meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+  <link rel="icon" tal:attributes="href api.static_url('static/img/favicon.ico')" type="image/x-icon"/>
+  <link rel="stylesheet" type="text/css"
+        tal:attributes="href api.static_url('static/css/style.css')"/>
+</head>
+<body>
+
+  <div metal:define-slot="content"></div>
+
+</body>
+</html>

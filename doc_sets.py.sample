@@ -1,0 +1,14 @@
+from __future__ import unicode_literals
+
+import os
+
+
+here = os.path.abspath(os.path.dirname(__file__))
+
+DOC_SETS = {
+    'dokang': {
+        'path': '%s/docs/_build/html' % here,
+        'url': 'file://%s/docs/_build/html/index.html' % here,
+        'title': "Dokang"
+    },
+}
