@@ -8,10 +8,13 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import os
+import logging
 import sys
 
 from bs4 import BeautifulSoup
 
+
+logger = logging.getLogger("dokang")
 
 def harvest_set(base_dir, doc_set):
     """Harvest content from a set of documents."""
@@ -23,10 +26,14 @@ def harvest_set(base_dir, doc_set):
             if filename in ('genindex.html', 'search.html'):
                 continue
             path = os.path.join(dirpath, filename)
-            doc = harvest_file(path)
-            doc['path'] = os.path.relpath(doc['path'], base_dir)
-            doc['set'] = doc_set
-            documents.append(doc)
+            try:
+                doc = harvest_file(path)
+            except Exception:  # pylint: disable=broad-except
+                logger.exception("Could not index document %s", path)
+            else:
+                doc['path'] = os.path.relpath(doc['path'], base_dir)
+                doc['set'] = doc_set
+                documents.append(doc)
     return documents
 
 
