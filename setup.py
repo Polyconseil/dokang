@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 
 from setuptools import setup, find_packages
 
@@ -8,10 +9,15 @@ _version_file = open(os.path.join(os.path.dirname(__file__), 'dokang', 'version.
 VERSION = re.compile(r"^VERSION = '(.*?)'", re.S).match(_version_file.read()).group(1)
 
 
-def load_requirements(path):
+def load_requirements(path, dev=True):
+    reqs = []
     with open(path) as fp:
-        return [line for line in fp.read().split("\n")
+        reqs = [line for line in fp.read().split("\n")
             if line and not line.startswith(("-r", "#"))]
+    if dev and sys.version[:2] < '2.7':
+        # Python 2.6 compatibility.
+        reqs.append('unittest2')
+    return reqs
 
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -45,7 +51,7 @@ setup(name='Dokang',
       include_package_data=True,
       zip_safe=False,
       install_requires=load_requirements('requirements.txt'),
-      tests_require=load_requirements('requirements_dev.txt'),
+      tests_require=load_requirements('requirements_dev.txt', dev=True),
       test_suite='tests',
       entry_points="""\
       [paste.app_factory]

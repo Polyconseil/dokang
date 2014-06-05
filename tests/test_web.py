@@ -5,7 +5,10 @@ from __future__ import unicode_literals
 
 import os
 import shutil
-from unittest import TestCase
+try:  # Python 2.6 compatibility
+    from unittest2 import TestCase
+except ImportError:
+    from unittest import TestCase
 
 from pyramid import testing
 
