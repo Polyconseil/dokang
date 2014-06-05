@@ -63,17 +63,17 @@ class TestWebFrontEnd(TestCase):
 
     def test_search(self):
         request = make_request()
-        context = views.index(request)
+        context = views.search(request)
         self.assertEqual(context['results'], None)
 
         request = make_request(
             query='ShouldBeIndexed',
             doc_set='not-the-right-docset')
-        context = views.index(request)
+        context = views.search(request)
         self.assertEqual(context['results'], [])
 
         request = make_request(query='ShouldBeIndexed')
-        context = views.index(request)
+        context = views.search(request)
         hits = context['results']
         self.assertEqual(len(hits), 1)
         self.assertEqual(hits[0]['doc_set_title'], "Title of the test doc set")

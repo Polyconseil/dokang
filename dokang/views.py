@@ -8,7 +8,7 @@ from pyramid.renderers import get_renderer
 from dokang.backends import whoosh
 
 
-def index(request):
+def search(request):
     doc_sets = request.registry.settings['dokang.doc_sets']
     raw_query = request.GET.get('query')
     doc_set = request.GET.get('doc_set')
