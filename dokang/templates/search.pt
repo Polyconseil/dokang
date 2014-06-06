@@ -11,6 +11,12 @@
     </form>
     <form  class="search-form" method="get">
       <input type="text" name="query" value="${ query }">
+      in <select name="doc_set">
+        <option value="">all document sets</option>
+        <option tal:repeat="doc_set doc_sets"
+                value="${ doc_set['id'] }"
+                selected="${ only_doc_set == doc_set['id'] }">${ doc_set['title'] }</option>
+      </select>
       <input type="submit" value="search">
     </form>
 </div>

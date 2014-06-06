@@ -11,21 +11,24 @@ from dokang.backends import whoosh
 def search(request):
     doc_sets = request.registry.settings['dokang.doc_sets']
     raw_query = request.GET.get('query')
-    doc_set = request.GET.get('doc_set')
+    only_doc_set = request.GET.get('doc_set')
     if raw_query:
         index_path = request.registry.settings['dokang.index_path']
         searcher = whoosh.WhooshSearcher(index_path)
         query = raw_query
-        if doc_set:
-            query += ' set:%s' % doc_set
+        if only_doc_set:
+            query += ' set:%s' % only_doc_set
         results = list(searcher.search(query, limit=20))
         for hit in results:
             hit['doc_set_title'] = doc_sets[hit['set']]['title']
     else:
         results = None
+    # Add doc set id to the dictionary of each doc set.
+    for doc_set_id, info in doc_sets.items():
+        info['id'] = doc_set_id
     return {'api': TemplateApi(request),
             'query': raw_query,
-            'doc_set': doc_set,
+            'only_doc_set': only_doc_set,
             'doc_sets': sorted(doc_sets.values(), key=lambda d: d['title'].lower()),
             'results': results}
 

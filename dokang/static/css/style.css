@@ -38,7 +38,7 @@ a {
     padding: 1em;
 }
 
-.search-form input, .jump-form select {
+.search-form input, .search-form select, .jump-form select {
     font-size: 1.1em;
 }
 
