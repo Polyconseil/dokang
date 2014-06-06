@@ -26,7 +26,7 @@ def search(request):
     return {'api': TemplateApi(request),
             'query': raw_query,
             'doc_set': doc_set,
-            'doc_sets': doc_sets.values(),
+            'doc_sets': sorted(doc_sets.values(), key=lambda d: d['title'].lower()),
             'results': results}
 
 

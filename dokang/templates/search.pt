@@ -15,6 +15,12 @@
     </form>
 </div>
 
+<ul class="doc-sets" tal:condition="not query">
+  <li tal:repeat="doc_set doc_sets">
+    <a href="${ doc_set['url'] }">${ doc_set['title'] }</a>
+  </li>
+</ul>
+
 <div class="results">
   <tal:if tal:condition="query">
     <p><strong>${ len(results) }</strong> results.</p>

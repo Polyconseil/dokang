@@ -42,6 +42,12 @@ a {
     font-size: 1.1em;
 }
 
+.doc-sets li {
+    list-style-type: none;
+    font-size: 1.1em;
+    padding-bottom: 0.5em;
+}
+
 .results {
     padding: 1em;
 }
