@@ -1,9 +1,9 @@
 from __future__ import unicode_literals
 
-import os
+import inspect, os
 
 
-here = os.path.abspath(os.path.dirname(__file__))
+here = os.path.abspath(os.path.dirname(inspect.getfile(inspect.currentframe())))
 
 DOC_SETS = {
     'dokang': {
