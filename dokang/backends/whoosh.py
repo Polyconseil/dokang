@@ -36,6 +36,11 @@ class WhooshIndexer(object):
         os.mkdir(self.index_path)
         create_in(self.index_path, schema)
 
+    def clear_set(self, doc_set):
+        """Remove all documents of this set from the index."""
+        index = open_dir(self.index_path)
+        index.delete_by_term('set', doc_set)
+
     def index_documents(self, documents):
         """Add or update documents in the index."""
         index = open_dir(self.index_path)

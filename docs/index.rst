@@ -29,7 +29,7 @@ Configuration
 Configuration is twofold:
 
 1. The entry point is an ``INI`` configuration file, an example of
-   which is shipped with the source as ``dev.ini``. It control both
+   which is shipped with the source as ``dev.ini``. It controls both
    the configuration of the web frontend and the general settings. The
    latter are defined by ``dokang.*`` options:
 
@@ -122,11 +122,28 @@ You may then search the index with the ``search`` command:
 
    $ dokang search needle
 
-.. note::
 
-   Use ``dokang --help`` to see a list of commands and general
-   options. Use ``dokang <command> --help`` to get help and a list of
-   options of a specific command.
+Command-line reference
+----------------------
+
+``help``
+    Display a list of commands and general options. Use ``dokang
+    <command> --help`` to get help and a list of options for a
+    specific command.
+
+``init [--force]``
+    Initialize the index. If the index already exists, Dokang will
+    refuse to overwrite it unless you provide the ``--force`` option.
+
+``index [--docset DOC_SET_ID]``
+    Index all configured document sets or only the given document
+    set. If a document has already been indexed, the index is updated.
+
+``clear DOC_SET_ID``
+    Remove the given document set from the index.
+
+``search QUERY``
+    Search the index.
 
 
 Web frontend

@@ -41,10 +41,18 @@ def index(settings, only_doc_set=None):
     for doc_set, info in settings['dokang.doc_sets'].items():
         if only_doc_set is not None and only_doc_set != doc_set:
             continue
-        logger.info("Indexing doc set %s...", doc_set)
+        logger.info('Indexing doc set "%s"...', doc_set)
         documents = harvester.harvest_set(info['path'], doc_set)
         # FIXME: how can we detect if documents have been deleted?
         indexer.index_documents(documents)
+
+
+def clear(settings, docset):
+    index_path = settings['dokang.index_path']
+    indexer = whoosh.WhooshIndexer(index_path)
+    logger.info('Clearing document set "%s"', docset)
+    indexer.clear_set(docset)
+
 
 def search(settings, query):
     if isinstance(query, bytes):
@@ -84,6 +92,15 @@ def parse_args(args):
         dest='only_doc_set',
         metavar='DOC_SET_ID',
         help="If set, only index the given document set.")
+
+    # clear
+    parser_clear = subparsers.add_parser('clear', help='Remove a document set.')
+    parser_clear.set_defaults(callback=clear)
+    parser_clear.add_argument(
+        'docset',
+        action='store',
+        metavar='DOC_SET_ID',
+        help="The id of the document set to remove.")
 
     # search
     parser_search = subparsers.add_parser('search', help="Search in the index.")
