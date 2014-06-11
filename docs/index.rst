@@ -171,3 +171,16 @@ Then run it:
 See the documentation of Waitress for further details.
 
 .. _Waitress: http://waitress.readthedocs.org
+
+
+Contributing
+------------
+
+Dokang is hosted on GitHub at https://github.com/polyconseil/dokang/.
+Suggestions and patches are welcome.
+
+Dokang is written by Polyconseil and is licensed under the 3-clause
+BSD license, a copy of which is included in the source and reproduced
+below:
+
+.. include:: ../LICENSE.txt
