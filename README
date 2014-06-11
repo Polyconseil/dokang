@@ -1,1 +1,24 @@
-Dokang is a lightweight search engine for HTML documents with a web frontend.
+Dokang is a lightweight search engine for HTML documents with a web
+frontend.
+
+Status: Dokang is fully functional and works for us but has a few
+limitations:
+
+- it only indexes Sphinx documents that use the "Read The Docs"
+  theme. Currently, we look for a particular "<div>" element to
+  extract the content from HTML files. This limitation may be lifted
+  by adding another key in the configuration dictionary that instructs
+  Dokang how to look for content in a given document (the name of the
+  harvester plugin to call, for example);
+
+- the indexing and search features are minimal. They work but could
+  certainly be tweaked to be faster, provide better results or, who
+  knows, both;
+
+- Dokang does not detect deleted documents. You may work around that by
+  removing the document set (with the "clean" command) and indexing it
+  again (with the "index" command);
+
+- the two-file configuration is a bit unfortunate. The INI file is
+  useful for WSGI servers but defining structured options is much
+  easier in Python.
