@@ -181,7 +181,7 @@ html_static_path = []
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = please_customize('htmlhelp_basename')
+htmlhelp_basename = 'Dokangdoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
