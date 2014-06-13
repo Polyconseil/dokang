@@ -14,7 +14,7 @@ def load_requirements(path, dev=True):
     with open(path) as fp:
         reqs = [line for line in fp.read().split("\n")
             if line and not line.startswith(("-r", "#"))]
-    if dev and sys.version[:2] < '2.7':
+    if dev and sys.version[:3] < '2.7':
         # Python 2.6 compatibility.
         reqs.append('unittest2')
     return reqs
