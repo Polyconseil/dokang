@@ -1,0 +1,45 @@
+# -*- coding: utf-8 -*-
+# Copyright (c) 2011-2014 Polyconseil SAS. All rights reserved.
+
+all = ['html_config', 'HtmlHarvester']
+
+from bs4 import BeautifulSoup
+
+from dokang.harvesters import Harvester
+
+
+class HtmlHarvester(Harvester):
+    """Harvest content from HTML files."""
+
+    def harvest_file(self, path):
+        with open(path) as fp:
+            html = fp.read()
+        soup = BeautifulSoup(html)
+        title, content = self._retrieve_title_and_content(soup)
+        return {
+            'title': title,
+            'content': content,
+        }
+
+    def _retrieve_title_and_content(self, soup):
+        title = soup.title.string.strip()
+        content = soup.find('body').get_text().strip()
+        return title, content
+
+
+def html_config(
+        harvester=HtmlHarvester,
+        include=None,
+        exclude=None,
+        **extensions):
+    """Return a configuration that is suitable for an HTML document
+    set.
+    """
+    config = {
+        'include': include,
+        'exclude': exclude,
+        '.html': harvester,
+        '.htm': harvester,
+    }
+    config.update(extensions)
+    return config

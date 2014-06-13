@@ -13,6 +13,7 @@ from whoosh.qparser import MultifieldParser
 
 
 class WhooshIndexer(object):
+    """Encapsulate indexation through Whoosh."""
 
     def __init__(self, index_path):
         self.index_path = index_path
@@ -60,11 +61,13 @@ class WhooshIndexer(object):
 
 
 class WhooshSearcher(object):
+    """Encapsulate search through Whoosh."""
 
     def __init__(self, index_path):
         self.index = open_dir(index_path)
 
     def search(self, query_string, limit=None):
+        """Search the query string in the index."""
         parser = MultifieldParser(
             ('title', 'content'), self.index.schema)
         query = parser.parse(query_string)

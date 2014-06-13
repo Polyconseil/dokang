@@ -10,5 +10,8 @@ def load_doc_sets(settings):
     contents = {}
     with open(path) as fp:
         exec(fp.read(), {}, contents)  # pylint: disable=exec-used
-    settings[key] = contents['DOC_SETS']
+    sets = {}
+    for info in contents['DOC_SETS']:
+        sets[info['id']] = info
+    settings[key] = sets
     return settings

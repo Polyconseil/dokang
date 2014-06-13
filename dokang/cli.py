@@ -9,7 +9,7 @@ import os
 import sys
 
 from dokang.backends import whoosh
-from dokang import harvester
+from dokang import harvesters
 from dokang.utils import load_doc_sets
 from dokang.version import VERSION
 from dokang import compat
@@ -42,8 +42,8 @@ def index(settings, only_doc_set=None):
         if only_doc_set is not None and only_doc_set != doc_set:
             continue
         logger.info('Indexing doc set "%s"...', doc_set)
-        documents = harvester.harvest_set(info['path'], doc_set)
-        # FIXME: how can we detect if documents have been deleted?
+        documents = harvesters.harvest_set(info['path'], doc_set, info['harvester'])
+        # FIXME: how can we detect when documents are deleted?
         indexer.index_documents(documents)
 
 

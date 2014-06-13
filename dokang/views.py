@@ -23,9 +23,6 @@ def search(request):
             hit['doc_set_title'] = doc_sets[hit['set']]['title']
     else:
         results = None
-    # Add doc set id to the dictionary of each doc set.
-    for doc_set_id, info in doc_sets.items():
-        info['id'] = doc_set_id
     return {'api': TemplateApi(request),
             'query': raw_query,
             'only_doc_set': only_doc_set,

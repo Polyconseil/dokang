@@ -1,14 +1,19 @@
 from __future__ import unicode_literals
 
-import inspect, os
+import inspect
+import os
+
+from dokang.harvesters import sphinx_html_config
 
 
+# FIXME: I think that we need inspect (instead of '__file__') because we use exec. Can we do better?
 here = os.path.abspath(os.path.dirname(inspect.getfile(inspect.currentframe())))
 
-DOC_SETS = {
-    'dokang': {
-        'path': '%s/docs/_build/html' % here,
-        'url': 'file://%s/docs/_build/html/index.html' % here,
-        'title': "Dokang"
+DOC_SETS = (
+    {'id': 'dokang',
+     'title': "Dokang",
+     'path': '%s/docs/_build/html' % here,
+     'harvester': sphinx_html_config(),
+     'url': 'file://%s/docs/_build/html/' % here,
     },
-}
+)

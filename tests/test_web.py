@@ -13,7 +13,7 @@ except ImportError:
 from pyramid import testing
 
 from dokang.backends import whoosh as whoosh_backend
-from dokang import harvester
+from dokang.harvesters import SphinxHarvester
 from dokang import views
 
 
@@ -25,14 +25,18 @@ def get_data_path(*components):
 
 
 INDEX_PATH = get_data_path('whoosh_test_index')
-TEST_DOC_SETS = {
-    'test': {
-        'title': "Title of the test doc set",
+TEST_DOC_SETS = (
+    # Minimal configuration with just what we need to test the web
+    # frontend.
+    {'test': {
+      'title': "Title of the test doc set"}
     }
-}
+)
+
 
 def make_request(**params):
     request = testing.DummyRequest(params=params)
+    # FIXME: we should set that in setUp below with: testing.setUp(registry=xxx)
     request.registry.settings['dokang.doc_sets'] = TEST_DOC_SETS
     request.registry.settings['dokang.index_path'] = INDEX_PATH
     return request
@@ -61,8 +65,11 @@ class TestWebFrontEnd(TestCase):
     def _prepare_index(cls):
         indexer = whoosh_backend.WhooshIndexer(INDEX_PATH)
         indexer.initialize()
-        docs = harvester.harvest_set(get_data_path('sphinx_rtd'), 'test')
-        indexer.index_documents(docs)
+        harvester = SphinxHarvester()
+        doc = harvester.harvest_file(get_data_path('sphinx.html'))
+        doc['set'] = 'test'
+        doc['path'] = 'sphinx.html'
+        indexer.index_documents([doc])
 
     def test_search(self):
         request = make_request()

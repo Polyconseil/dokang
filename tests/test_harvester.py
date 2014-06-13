@@ -9,7 +9,7 @@ try:  # Python 2.6 compatibility
 except ImportError:
     from unittest import TestCase
 
-from dokang import harvester
+from dokang import harvesters
 
 
 def get_data_path(*components):
@@ -18,16 +18,35 @@ def get_data_path(*components):
         'data',
         *components)
 
-class TestHarvester(TestCase):
 
-    def test_readthedocs_sphinx_document(self):
-        doc_set = 'docset'
-        path = get_data_path('sphinx_rtd')
-        documents = harvester.harvest_set(path, doc_set)
-        self.assertEqual(len(documents), 1)
-        document = documents[0]
+class TestHtmlHarvester(TestCase):
+
+    def test_basics(self):
+        path = get_data_path('html.html')
+        harvester = harvesters.HtmlHarvester()
+        document = harvester.harvest_file(path)
         self.assertEqual(document['title'], "The title")
-        self.assertEqual(document['path'], 'index.html')
-        self.assertEqual(document['set'], doc_set)
+        self.assertIn("ShouldBeIndexed", document['content'])
+        self.assertNotIn("ShouldNotBeIndexed", document['content'])
+
+
+class TestSphinxHarvester(TestCase):
+
+    def test_basics(self):
+        path = get_data_path('sphinx.html')
+        harvester = harvesters.SphinxHarvester()
+        document = harvester.harvest_file(path)
+        self.assertEqual(document['title'], "The title")
+        self.assertIn("ShouldBeIndexed", document['content'])
+        self.assertNotIn("ShouldNotBeIndexed", document['content'])
+
+
+class TestReadTheDocsSphinxHarvester(TestCase):
+
+    def test_basics(self):
+        path = get_data_path('sphinx_rtd.html')
+        harvester = harvesters.ReadTheDocsSphinxHarvester()
+        document = harvester.harvest_file(path)
+        self.assertEqual(document['title'], "The title")
         self.assertIn("ShouldBeIndexed", document['content'])
         self.assertNotIn("ShouldNotBeIndexed", document['content'])
