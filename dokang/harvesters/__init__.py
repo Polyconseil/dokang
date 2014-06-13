@@ -44,7 +44,6 @@ def harvest_set(base_dir, doc_set, config):
     include = [re.compile(exp) for exp in config_copy.pop('include') or ()]
     exclude = [re.compile(exp) for exp in config_copy.pop('exclude') or ()]
     extensions = config_copy
-    print base_dir
     for dirpath, _dirnames, filenames in os.walk(base_dir):
         for filename in filenames:
             path = os.path.join(dirpath, filename)
