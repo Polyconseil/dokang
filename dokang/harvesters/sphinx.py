@@ -59,7 +59,7 @@ class ReadTheDocsSphinxHarvester(SphinxHarvester):
     def _retrieve_title_and_content(self, soup):
         content_block = soup.find(role='main')
         title = content_block.find('h1').get_text()
-        content = content_block.get_text()        
+        content = content_block.get_text()
         return title, content
 
 

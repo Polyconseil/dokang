@@ -5,11 +5,11 @@ import logging
 import os
 import re
 
-from .base import Harvester  # pylint: disable: unused-import
-from .html import html_config, HtmlHarvester  # pylint: disable: unused-import
+from .base import Harvester  # pylint: disable=unused-import
+from .html import html_config, HtmlHarvester  # pylint: disable=unused-import
 from .sphinx import (
     sphinx_config, sphinx_rtd_config,
-    SphinxHarvester, ReadTheDocsSphinxHarvester)  # pylint: disable: unused-import
+    SphinxHarvester, ReadTheDocsSphinxHarvester)  # pylint: disable=unused-import
 
 
 logger = logging.getLogger("dokang")
