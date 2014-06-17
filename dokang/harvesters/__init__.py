@@ -52,6 +52,7 @@ def harvest_set(base_dir, doc_set, config):
                 logger.debug('Excluded file "%s": include/exclude rules.', relative_path)
                 continue
             _, extension = os.path.splitext(filename)
+            extension = extension.lstrip('.')  # remove leading dot
             harvester_class = extensions.get(extension)
             if harvester_class is None:
                 logger.debug('Excluded file "%s": no harvester found for %s.', relative_path, extension)

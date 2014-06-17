@@ -36,8 +36,8 @@ def html_config(
     config = {
         'include': include,
         'exclude': exclude,
-        '.html': harvester,
-        '.htm': harvester,
+        'html': harvester,
+        'htm': harvester,
     }
     config.update(extensions)
     return config

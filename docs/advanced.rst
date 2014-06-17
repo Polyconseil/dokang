@@ -24,12 +24,12 @@ include
     This makes easier to write exclude and include regular expressions.
 
 The configuration must also indicate which harvester to use for each
-supported file extension. The extensions must include the dot. Here is
-an example of such a configuration:
+supported file extension. The extensions must not include the leading
+dot. Here is an example of such a configuration:
 
 .. code:: python
 
-   {'.html': SphinxHarvester,
+   {'html': SphinxHarvester,
     'include': ('_download', ),
     'exclude': ('^genindex.html$', '^search.html$', '/?_.*')
    }

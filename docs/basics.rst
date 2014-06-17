@@ -68,13 +68,13 @@ Configuration is twofold:
 
    .. code:: python
 
-      from dokang.harvesters import html_config
+      from dokang.harvesters import sphinx_rtd_config
 
       DOC_SETS = (
           {'id': dokang',
            'title': "Dokang",
            'path': '/home/docs/dokang/_build/html',
-           'harvester': sphinx_rst_config(),
+           'harvester': sphinx_rtd_config(),
            'url': 'http://docs.exemple.com/dokang',
           },
       )
