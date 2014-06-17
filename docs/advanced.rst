@@ -53,8 +53,13 @@ You may customize those pre-defined configurations, like this:
        exclude=your_own_list_of_reg_exps,
        pdf=PdfHarvester)
 
-For a list of all harvesting configurations and harvesters, see the
-:doc:`api` chapter.
+For a list of all harvesting configurations and harvesters that ship
+with Dokang, see the :doc:`api` chapter.
+
+External Python packages may also provide their own harvesters. Here
+is a list of the known ones:
+
+- PDF harvester: `dokang_pdf <http://github.com/Polyconseil/dokang_pdf>`_.
 
 
 .. _advanced_cli_ref:
