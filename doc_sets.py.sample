@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 import inspect
 import os
 
-from dokang.harvesters import sphinx_html_config
+from dokang.harvesters import sphinx_rtd_config
 
 
 # FIXME: I think that we need inspect (instead of '__file__') because we use exec. Can we do better?
@@ -13,7 +13,7 @@ DOC_SETS = (
     {'id': 'dokang',
      'title': "Dokang",
      'path': '%s/docs/_build/html' % here,
-     'harvester': sphinx_html_config(),
+     'harvester': sphinx_rtd_config(),
      'url': 'file://%s/docs/_build/html/' % here,
     },
 )
