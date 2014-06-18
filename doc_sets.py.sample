@@ -1,13 +1,11 @@
 from __future__ import unicode_literals
 
-import inspect
 import os
 
 from dokang.harvesters import sphinx_rtd_config
 
 
-# FIXME: I think that we need inspect (instead of '__file__') because we use exec. Can we do better?
-here = os.path.abspath(os.path.dirname(inspect.getfile(inspect.currentframe())))
+here = os.path.abspath(os.path.dirname(__file__))
 
 DOC_SETS = (
     {'id': 'dokang',
