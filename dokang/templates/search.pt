@@ -34,7 +34,7 @@
 
 <ol tal:condition="results">
   <li tal:repeat="hit results">
-    <a href="${ api.hit_url(hit) }">${ hit['title'] }</a>
+    <a href="${ api.hit_url(hit) }">${ hit['title'] or 'Untitle document' }</a>
     <span class="docset">&mdash; ${ (hit['doc_set_title']) }</span>
   </li>
 </ol>
