@@ -24,5 +24,8 @@ class Harvester(object):
 
         content
             The concatenated content of the document.
+
+        kind
+            The kind of document: HTML, PDF, etc.
         """
         return None

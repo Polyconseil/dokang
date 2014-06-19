@@ -17,6 +17,7 @@ class HtmlHarvester(Harvester):
         return {
             'title': title,
             'content': content,
+            'kind': 'HTML',
         }
 
     def _retrieve_title_and_content(self, soup):

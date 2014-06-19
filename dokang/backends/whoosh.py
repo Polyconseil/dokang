@@ -28,10 +28,12 @@ class WhooshIndexer(object):
         # FIXME: play with 'field_boost' parameter
         schema = Schema(
             uid=ID(stored=False, unique=True),
+            path=ID(stored=True),
+            set=ID(stored=True),
             title=TEXT(stored=True),
             content=TEXT(stored=False),
-            path=ID(stored=True),
-            set=ID(stored=True))
+            kind=TEXT(stored=True),
+        )
         if os.path.exists(self.index_path):
             shutil.rmtree(self.index_path)
         os.mkdir(self.index_path)
@@ -51,10 +53,12 @@ class WhooshIndexer(object):
             # update (or not update) an existing document.
             writer.update_document(
                 uid=':'.join((document['set'], document['path'])),
+                path=document['path'],
+                set=document['set'],
                 title=document['title'],
                 content=document['content'],
-                path=document['path'],
-                set=document['set'])
+                kind=document['kind'],
+            )
         # optimize=True results in slower indexation but faster
         # search. That will do.
         writer.commit(optimize=True)
@@ -79,4 +83,6 @@ class WhooshSearcher(object):
                 yield {
                     'path': hit['path'],
                     'title': hit['title'],
-                    'set': hit['set']}
+                    'set': hit['set'],
+                    'kind': hit['kind'],
+                }
