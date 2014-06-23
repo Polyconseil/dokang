@@ -37,7 +37,8 @@ class TestWhooshBackend(TestCase):
             'title': 'TitleOfFoo',
             'content': 'ContentOfFoo',
             'path': 'foo.html',
-            'set': 'set1'}]
+            'set': 'set1',
+            'kind': 'HTML'}]
         indexer.index_documents(docs)
 
         searcher = whoosh_backend.WhooshSearcher(self.index_path)
