@@ -7,10 +7,6 @@ limitations:
   certainly be tweaked to be faster, provide better results or, who
   knows, both;
 
-- Dokang does not detect deleted documents. You may work around that by
-  removing the document set (with the "clean" command) and indexing it
-  again (with the "index" command);
-
 - the two-file configuration is a bit unfortunate. The INI file is
   useful for WSGI servers but defining structured options is much
   easier in Python;

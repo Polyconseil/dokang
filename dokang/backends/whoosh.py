@@ -4,10 +4,11 @@
 
 from __future__ import absolute_import
 
+from collections import defaultdict
 import os
 import shutil
 
-from whoosh.fields import ID, Schema, TEXT
+from whoosh.fields import ID, Schema, STORED, TEXT
 from whoosh.index import create_in, open_dir
 from whoosh.qparser import MultifieldParser
 
@@ -30,6 +31,7 @@ class WhooshIndexer(object):
             uid=ID(stored=False, unique=True),
             path=ID(stored=True),
             set=ID(stored=True),
+            mtime=STORED,  # not searchable
             title=TEXT(stored=True),
             content=TEXT(stored=False),
             kind=TEXT(stored=True),
@@ -49,12 +51,11 @@ class WhooshIndexer(object):
         index = open_dir(self.index_path)
         writer = index.writer()
         for document in documents:
-            # FIXME: store file last modification time, so that we can
-            # update (or not update) an existing document.
             writer.update_document(
                 uid=':'.join((document['set'], document['path'])),
                 path=document['path'],
                 set=document['set'],
+                mtime=document['mtime'],
                 title=document['title'],
                 content=document['content'],
                 kind=document['kind'],
@@ -63,12 +64,29 @@ class WhooshIndexer(object):
         # search. That will do.
         writer.commit(optimize=True)
 
+    def delete_documents(self, paths):
+        index = open_dir(self.index_path)
+        writer = index.writer()
+        # FIXME: could we avoid the loop?
+        for path in paths:
+            writer.delete_by_term('path', path)
+        writer.commit(optimize=True)
+
 
 class WhooshSearcher(object):
     """Encapsulate search through Whoosh."""
 
     def __init__(self, index_path):
         self.index = open_dir(index_path)
+
+    def get_modification_times(self):
+        """Return the last modification time of each indexed document."""
+        # It is not as heavy as it seems.
+        mtimes = defaultdict(dict)
+        with self.index.searcher() as searcher:
+            for doc in searcher.all_stored_fields():
+                mtimes[doc['set']][doc['path']] = doc['mtime']
+        return mtimes
 
     def search(self, query_string, limit=None):
         """Search the query string in the index."""

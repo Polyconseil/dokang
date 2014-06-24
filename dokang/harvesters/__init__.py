@@ -25,8 +25,14 @@ def _must_process_path(path, include, exclude):
     return True
 
 
-def harvest_set(base_dir, doc_set, config):
+def harvest_set(base_dir, doc_set, config, mtimes, force):
     """Harvest a document set and return documents as dictionaries.
+
+    ``config`` is the harvester configuration. It should contain a key
+    for each supported file extensions. ``mtimes`` is a dictionary
+    that links the path of each indexed file to its last modification
+    time. ``force`` indicates whether to reindex a document even if it
+    has not ben modified since the last indexation.
 
     This function is a generator. It yields dictionaries. Each
     dictionary should represent a document and contain the following
@@ -57,6 +63,11 @@ def harvest_set(base_dir, doc_set, config):
             if harvester_class is None:
                 logger.debug('Excluded file "%s": no harvester found for %s.', relative_path, extension)
                 continue
+            mtime = os.path.getmtime(path)
+            indexed_mtime = mtimes.get(relative_path)
+            if not force and (indexed_mtime and indexed_mtime >= mtime):
+                logger.debug('Excluded file: "%s": not modified since last indexation.', relative_path)
+                continue
             try:
                 logger.debug('Indexing file "%s"', relative_path)
                 doc = harvester_class().harvest_file(path)
@@ -66,4 +77,5 @@ def harvest_set(base_dir, doc_set, config):
                 if doc:
                     doc['path'] = relative_path
                     doc['set'] = doc_set
+                    doc['mtime'] = mtime
                     yield doc

@@ -35,15 +35,35 @@ def init(settings, force):
     indexer.initialize()
 
 
-def index(settings, only_doc_set=None):
+def index(settings, only_doc_set, force):
     index_path = settings['dokang.index_path']
     indexer = whoosh.WhooshIndexer(index_path)
+    searcher = whoosh.WhooshSearcher(index_path)
+    mtimes = searcher.get_modification_times()
     for doc_set, info in settings['dokang.doc_sets'].items():
         if only_doc_set is not None and only_doc_set != doc_set:
             continue
+
         logger.info('Indexing doc set "%s"...', doc_set)
-        documents = harvesters.harvest_set(info['path'], doc_set, info['harvester'])
-        # FIXME: how can we detect when documents are deleted?
+
+        # Unindex documents that have been deleted from the document
+        # set.
+        to_be_deleted = []
+        for relative_path in mtimes[doc_set].keys():
+            path = os.path.join(info['path'], relative_path)
+            if not os.path.exists(path):
+                logger.debug('Marking indexed document "%s" for deletion.', relative_path)
+                to_be_deleted.append(relative_path)
+        indexer.delete_documents(to_be_deleted)
+
+        # Index or update all documents, or ignore them according to
+        # their last modification time.
+        documents = harvesters.harvest_set(
+            info['path'],
+            doc_set,
+            info['harvester'],
+            mtimes.get(doc_set, {}),
+            force)
         indexer.index_documents(documents)
 
 
@@ -92,6 +112,10 @@ def parse_args(args):
         dest='only_doc_set',
         metavar='DOC_SET_ID',
         help="If set, only index the given document set.")
+    parser_index.add_argument(
+        '--force',
+        action='store_true',
+        help="If set, reindex all documents even those that have not been modified since the last indexation.")
 
     # clear
     parser_clear = subparsers.add_parser('clear', help='Remove a document set.')

@@ -70,7 +70,7 @@ Command line reference
 Herebelow are the list of available commands of the ``dokang`` command
 line program:
 
-``help``
+``--help``
     Display a list of commands and general options. Use ``dokang
     <command> --help`` to get help and a list of options for a
     specific command.
@@ -79,9 +79,12 @@ line program:
     Initialize the index. If the index already exists, Dokang will
     refuse to overwrite it unless you provide the ``--force`` option.
 
-``index [--docset DOC_SET_ID]``
+``index [--docset DOC_SET_ID] [--force]``
     Index all configured document sets or only the given document
-    set. If a document has already been indexed, the index is updated.
+    set. If a document has already been indexed, the index is
+    updated. If a document has not been modified since the last
+    indexation, it is not reindexed again (unless the ``force`` option
+    is provided).
 
 ``clear DOC_SET_ID``
     Remove the given document set from the index.

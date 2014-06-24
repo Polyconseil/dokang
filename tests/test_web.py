@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 
 import os
 import shutil
+import time
 try:  # Python 2.6 compatibility
     from unittest2 import TestCase
 except ImportError:
@@ -69,6 +70,7 @@ class TestWebFrontEnd(TestCase):
         doc = harvester.harvest_file(get_data_path('sphinx.html'))
         doc['set'] = 'test'
         doc['path'] = 'sphinx.html'
+        doc['mtime'] = time.time()
         indexer.index_documents([doc])
 
     def test_search(self):

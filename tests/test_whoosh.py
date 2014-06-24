@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 
 import os
 import shutil
+import time
 try:  # Python 2.6 compatibility
     from unittest2 import TestCase
 except ImportError:
@@ -37,6 +38,7 @@ class TestWhooshBackend(TestCase):
             'title': 'TitleOfFoo',
             'content': 'ContentOfFoo',
             'path': 'foo.html',
+            'mtime': time.time(),
             'set': 'set1',
             'kind': 'HTML'}]
         indexer.index_documents(docs)
