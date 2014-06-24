@@ -54,7 +54,8 @@ def index(settings, only_doc_set, force):
             if not os.path.exists(path):
                 logger.debug('Marking indexed document "%s" for deletion.', relative_path)
                 to_be_deleted.append(relative_path)
-        indexer.delete_documents(to_be_deleted)
+        if to_be_deleted:
+            indexer.delete_documents(to_be_deleted)
 
         # Index or update all documents, or ignore them according to
         # their last modification time.

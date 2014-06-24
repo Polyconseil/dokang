@@ -50,7 +50,9 @@ class WhooshIndexer(object):
         """Add or update documents in the index."""
         index = open_dir(self.index_path)
         writer = index.writer()
+        needs_commit = False
         for document in documents:
+            needs_commit = True
             writer.update_document(
                 uid=':'.join((document['set'], document['path'])),
                 path=document['path'],
@@ -62,9 +64,11 @@ class WhooshIndexer(object):
             )
         # optimize=True results in slower indexation but faster
         # search. That will do.
-        writer.commit(optimize=True)
+        if needs_commit:
+            writer.commit(optimize=True)
 
     def delete_documents(self, paths):
+        """Delete documents from the index."""
         index = open_dir(self.index_path)
         writer = index.writer()
         # FIXME: could we avoid the loop?
