@@ -35,14 +35,6 @@ TEST_DOC_SETS = (
 )
 
 
-def make_request(**params):
-    request = testing.DummyRequest(params=params)
-    # FIXME: we should set that in setUp below with: testing.setUp(registry=xxx)
-    request.registry.settings['dokang.doc_sets'] = TEST_DOC_SETS
-    request.registry.settings['dokang.index_path'] = INDEX_PATH
-    return request
-
-
 class TestWebFrontEnd(TestCase):
 
     @classmethod
@@ -58,6 +50,8 @@ class TestWebFrontEnd(TestCase):
     def setUp(self):
         self.config = testing.setUp()
         self.config.include('pyramid_chameleon')
+        self.config.registry.settings['dokang.doc_sets'] = TEST_DOC_SETS
+        self.config.registry.settings['dokang.index_path'] = INDEX_PATH
 
     def tearDown(self):
         testing.tearDown()
@@ -74,17 +68,18 @@ class TestWebFrontEnd(TestCase):
         indexer.index_documents([doc])
 
     def test_search(self):
-        request = make_request()
+        request = testing.DummyRequest()
         context = views.search(request)
         self.assertEqual(context['results'], None)
 
-        request = make_request(
-            query='ShouldBeIndexed',
-            doc_set='not-the-right-docset')
+        request = testing.DummyRequest(params={
+            'query': 'ShouldBeIndexed',
+            'doc_set': 'not-the-right-docset'})
         context = views.search(request)
         self.assertEqual(context['results'], [])
 
-        request = make_request(query='ShouldBeIndexed')
+        request = testing.DummyRequest(params={
+            'query': 'ShouldBeIndexed'})
         context = views.search(request)
         hits = context['results']
         self.assertEqual(len(hits), 1)
