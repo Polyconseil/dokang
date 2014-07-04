@@ -24,7 +24,7 @@ def get_data_path(*components):
 class TestApi(TestCase):
 
     def tearDown(self):
-        super(TestCase, self).tearDown()
+        super(TestApi, self).tearDown()
         if os.path.exists(self.index_path):
             shutil.rmtree(self.index_path)
 
