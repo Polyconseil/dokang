@@ -42,6 +42,13 @@ Configuration is twofold:
    the configuration of the web frontend and the general settings. The
    latter are defined by ``dokang.*`` options:
 
+   dokang.hit_limit
+       The maximum number of search results to fetch. It must be a
+       positive number. If equals to 0 (or if the option is omitted
+       from the file), no limit is set: all results are returned.
+
+       Default: no limit.
+
    dokang.index_path
        The path of the index created by the Whoosh backend. It is a
        directory that will be created on-the-fly when

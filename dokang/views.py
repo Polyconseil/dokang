@@ -8,16 +8,27 @@ from pyramid.renderers import get_renderer
 from dokang import api
 
 
+def get_hit_limit(settings):
+    if 'dokang.hit_limit' not in settings:
+        return None
+    hit_limit = int(settings['dokang.hit_limit'])
+    if hit_limit == 0:
+        return None
+    return hit_limit
+
+
 def search(request):
-    doc_sets = request.registry.settings['dokang.doc_sets']
+    settings = request.registry.settings
+    doc_sets = settings['dokang.doc_sets']
+    hit_limit = get_hit_limit(settings)
     raw_query = request.GET.get('query')
     only_doc_set = request.GET.get('doc_set')
     if raw_query:
         query = raw_query
         if only_doc_set:
             query += ' set:%s' % only_doc_set
-        index_path = request.registry.settings['dokang.index_path']
-        hits = list(api.search(index_path, query, limit=20))
+        index_path = settings['dokang.index_path']
+        hits = list(api.search(index_path, query, limit=hit_limit))
         for hit in hits:
             hit['doc_set_title'] = doc_sets[hit['set']]['title']
     else:

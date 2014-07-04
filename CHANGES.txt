@@ -1,6 +1,14 @@
 Change log
 ==========
 
+Dokang 0.4.0 (2014-07-04)
+-------------------------
+
+- A new ``dokang.hit_limit`` option has been added to the INI
+  configuration file. It limits the number of results shown on the web
+  front-end (or lift this limit if the option is absent).
+
+
 Dokang 0.3.0 (2014-07-04)
 -------------------------
 
