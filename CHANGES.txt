@@ -1,6 +1,16 @@
 Change log
 ==========
 
+Dokang 0.3.0 (2014-07-04)
+-------------------------
+
+- Fixed bug in the HTML harvester. Trying to use it would fail with an
+  exception because Whoosh would complain about something that
+  unexpectedly is a byte string.
+
+- Fixed bug in the handling of deleted documents. They were not
+  deleted from the index.
+
 
 Dokang 0.2.0 (2014-06-24)
 -------------------------

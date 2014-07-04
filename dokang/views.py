@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 
 from pyramid.renderers import get_renderer
 
-from dokang.backends import whoosh
+from dokang import api
 
 
 def search(request):
@@ -13,21 +13,20 @@ def search(request):
     raw_query = request.GET.get('query')
     only_doc_set = request.GET.get('doc_set')
     if raw_query:
-        index_path = request.registry.settings['dokang.index_path']
-        searcher = whoosh.WhooshSearcher(index_path)
         query = raw_query
         if only_doc_set:
             query += ' set:%s' % only_doc_set
-        results = list(searcher.search(query, limit=20))
-        for hit in results:
+        index_path = request.registry.settings['dokang.index_path']
+        hits = list(api.search(index_path, query, limit=20))
+        for hit in hits:
             hit['doc_set_title'] = doc_sets[hit['set']]['title']
     else:
-        results = None
+        hits = None
     return {'api': TemplateApi(request),
             'query': raw_query,
             'only_doc_set': only_doc_set,
             'doc_sets': sorted(doc_sets.values(), key=lambda d: d['title'].lower()),
-            'results': results}
+            'hits': hits}
 
 
 class TemplateApi(object):

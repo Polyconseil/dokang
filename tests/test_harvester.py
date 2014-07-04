@@ -22,7 +22,7 @@ def get_data_path(*components):
 class TestHtmlHarvester(TestCase):
 
     def test_basics(self):
-        path = get_data_path('html.html')
+        path = get_data_path('harvesters', 'html.html')
         harvester = harvesters.HtmlHarvester()
         document = harvester.harvest_file(path)
         self.assertEqual(document['title'], "The title")
@@ -33,7 +33,7 @@ class TestHtmlHarvester(TestCase):
 class TestSphinxHarvester(TestCase):
 
     def test_basics(self):
-        path = get_data_path('sphinx.html')
+        path = get_data_path('harvesters', 'sphinx.html')
         harvester = harvesters.SphinxHarvester()
         document = harvester.harvest_file(path)
         self.assertEqual(document['title'], "The title")
@@ -44,7 +44,7 @@ class TestSphinxHarvester(TestCase):
 class TestReadTheDocsSphinxHarvester(TestCase):
 
     def test_basics(self):
-        path = get_data_path('sphinx_rtd.html')
+        path = get_data_path('harvesters', 'sphinx_rtd.html')
         harvester = harvesters.ReadTheDocsSphinxHarvester()
         document = harvester.harvest_file(path)
         self.assertEqual(document['title'], "The title")

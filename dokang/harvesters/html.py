@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2011-2014 Polyconseil SAS. All rights reserved.
 
+from __future__ import unicode_literals
+
 from bs4 import BeautifulSoup
 
 from dokang.harvesters import Harvester

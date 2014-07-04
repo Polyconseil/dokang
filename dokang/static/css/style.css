@@ -48,11 +48,11 @@ a {
     padding-bottom: 0.5em;
 }
 
-.results {
+.hits {
     padding: 1em;
 }
 
-.results li {
+.hits li {
     margin-left: 1em;
     padding-bottom: 1em;
 }

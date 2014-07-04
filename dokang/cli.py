@@ -8,8 +8,7 @@ import logging
 import os
 import sys
 
-from dokang.backends import whoosh
-from dokang import harvesters
+from dokang import api
 from dokang.utils import load_doc_sets
 from dokang.version import VERSION
 from dokang import compat
@@ -29,58 +28,30 @@ def main():
 
 def init(settings, force):
     index_path = settings['dokang.index_path']
-    indexer = whoosh.WhooshIndexer(index_path)
     if os.path.exists(index_path) and not force:
         sys.exit("Index already exists at %s. Use `--force` to overwrite it." % index_path)
-    indexer.initialize()
+    api.initialize_index(index_path)
 
 
 def index(settings, only_doc_set, force):
     index_path = settings['dokang.index_path']
-    indexer = whoosh.WhooshIndexer(index_path)
-    searcher = whoosh.WhooshSearcher(index_path)
-    mtimes = searcher.get_modification_times()
-    for doc_set, info in settings['dokang.doc_sets'].items():
+    doc_sets = settings['dokang.doc_sets']
+    for doc_set, info in doc_sets.items():
         if only_doc_set is not None and only_doc_set != doc_set:
             continue
-
-        logger.info('Indexing doc set "%s"...', doc_set)
-
-        # Unindex documents that have been deleted from the document
-        # set.
-        to_be_deleted = []
-        for relative_path in mtimes[doc_set].keys():
-            path = os.path.join(info['path'], relative_path)
-            if not os.path.exists(path):
-                logger.debug('Marking indexed document "%s" for deletion.', relative_path)
-                to_be_deleted.append(relative_path)
-        if to_be_deleted:
-            indexer.delete_documents(to_be_deleted)
-
-        # Index or update all documents, or ignore them according to
-        # their last modification time.
-        documents = harvesters.harvest_set(
-            info['path'],
-            doc_set,
-            info['harvester'],
-            mtimes.get(doc_set, {}),
-            force)
-        indexer.index_documents(documents)
+        api.index_document_set(index_path, info, force)
 
 
 def clear(settings, docset):
     index_path = settings['dokang.index_path']
-    indexer = whoosh.WhooshIndexer(index_path)
-    logger.info('Clearing document set "%s"', docset)
-    indexer.clear_set(docset)
+    api.clear_document_set(index_path, docset)
 
 
 def search(settings, query):
     if isinstance(query, bytes):
         query = query.decode(sys.stdin.encoding)
     index_path = settings['dokang.index_path']
-    searcher = whoosh.WhooshSearcher(index_path)
-    hits = list(searcher.search(query, limit=None))
+    hits = list(api.search(index_path, query, limit=None))
     compat.print_to_stdout("Found %d results." % len(hits))
     for hit in hits:
         compat.print_to_stdout("[{set}] {title}".format(**hit))

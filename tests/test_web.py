@@ -13,8 +13,8 @@ except ImportError:
 
 from pyramid import testing
 
-from dokang.backends import whoosh as whoosh_backend
-from dokang.harvesters import SphinxHarvester
+from dokang import api
+from dokang.harvesters import html_config
 from dokang import views
 
 
@@ -58,29 +58,30 @@ class TestWebFrontEnd(TestCase):
 
     @classmethod
     def _prepare_index(cls):
-        indexer = whoosh_backend.WhooshIndexer(INDEX_PATH)
-        indexer.initialize()
-        harvester = SphinxHarvester()
-        doc = harvester.harvest_file(get_data_path('sphinx.html'))
-        doc['set'] = 'test'
-        doc['path'] = 'sphinx.html'
-        doc['mtime'] = time.time()
-        indexer.index_documents([doc])
+        api.initialize_index(INDEX_PATH)
+        doc_set_info = {
+            'id': 'test',
+            'title': 'Test documentation',
+            'path': get_data_path('api'),
+            'url': 'http://docs.exemple.com/',
+            'harvester': html_config()
+        }
+        api.index_document_set(INDEX_PATH, doc_set_info)
 
     def test_search(self):
         request = testing.DummyRequest()
         context = views.search(request)
-        self.assertEqual(context['results'], None)
+        self.assertEqual(context['hits'], None)
 
         request = testing.DummyRequest(params={
             'query': 'ShouldBeIndexed',
             'doc_set': 'not-the-right-docset'})
         context = views.search(request)
-        self.assertEqual(context['results'], [])
+        self.assertEqual(context['hits'], [])
 
         request = testing.DummyRequest(params={
             'query': 'ShouldBeIndexed'})
         context = views.search(request)
-        hits = context['results']
+        hits = context['hits']
         self.assertEqual(len(hits), 1)
         self.assertEqual(hits[0]['doc_set_title'], "Title of the test doc set")

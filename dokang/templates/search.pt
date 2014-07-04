@@ -27,13 +27,13 @@
   </li>
 </ul>
 
-<div class="results">
+<div class="hits">
   <tal:if tal:condition="query">
-    <p><strong>${ len(results) }</strong> results.</p>
+    <p><strong>${ len(hits) }</strong> hits.</p>
   </tal:if>
 
-<ol tal:condition="results">
-  <li tal:repeat="hit results">
+<ol tal:condition="hits">
+  <li tal:repeat="hit hits">
     <a href="${ api.hit_url(hit) }">${ hit['title'] or 'Untitled document' }</a>
     <span tal:condition="hit['kind'] != 'HTML'" class="document-kind">[${ hit['kind'] }]</span>
     <span class="docset">&mdash; ${ hit['doc_set_title'] }</span>
