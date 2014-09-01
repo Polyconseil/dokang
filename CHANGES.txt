@@ -1,6 +1,13 @@
 Change log
 ==========
 
+Dokang 0.4.1 (2014-08-27)
+-------------------------
+
+- Fixed MANIFEST.in so that the Python package contains all templates
+  and stylesheets required by the web front-end.
+
+
 Dokang 0.4.0 (2014-07-04)
 -------------------------
 
