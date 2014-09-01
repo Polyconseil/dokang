@@ -5,7 +5,6 @@ from __future__ import unicode_literals
 
 import os
 import shutil
-import time
 try:  # Python 2.6 compatibility
     from unittest2 import TestCase
 except ImportError:
