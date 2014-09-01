@@ -1,6 +1,15 @@
 Change log
 ==========
 
+Dokang 0.4.2 (2014-09-01)
+-------------------------
+
+- Fix bad-looking (but working) URLs generated in the web front-end.
+  They used to contain two consecutive slashes (for example
+  http://example.com/project//doc.html) when the configuration of the
+  project had a slash at the end of its URL.
+
+
 Dokang 0.4.1 (2014-08-27)
 -------------------------
 

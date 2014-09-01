@@ -57,7 +57,7 @@ class TemplateApi(object):
 
     def hit_url(self, hit):
         doc_sets = self.request.registry.settings['dokang.doc_sets']
-        base_url = doc_sets[hit['set']]['url']
+        base_url = doc_sets[hit['set']]['url'].rstrip('/')
         return '/'.join((base_url, hit['path']))
 
     def static_url(self, path, **kw):
