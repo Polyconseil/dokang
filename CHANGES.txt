@@ -1,6 +1,13 @@
 Change log
 ==========
 
+Next version (unreleased)
+-------------------------
+
+- Add "highlight" in the query string of the URLs of search results.
+  This parameter is understood by Sphinx-generated HTML files.
+
+
 Dokang 0.4.2 (2014-09-01)
 -------------------------
 
