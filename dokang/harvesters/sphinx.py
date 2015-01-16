@@ -19,7 +19,7 @@ class SphinxHarvester(Harvester):
     set of documents.
 
     We look at the rendered HTML and not the source files to avoid
-    wrongly indexing files included with the ``include`` directive).
+    wrongly indexing files included with the ``include`` directive.
     """
 
     def harvest_file(self, path):

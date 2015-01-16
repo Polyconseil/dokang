@@ -21,7 +21,7 @@ include
     file matches one of these expressions, it will be processed even
     if the path also matches one of the ``exclude`` expressions.
 
-    This makes easier to write exclude and include regular expressions.
+    This makes it easier to write exclude and include regular expressions.
 
 The configuration must also indicate which harvester to use for each
 supported file extension. The extensions must not include the leading
@@ -59,7 +59,7 @@ with Dokang, see the :doc:`api` chapter.
 External Python packages may also provide their own harvesters. Here
 is a list of the known ones:
 
-- PDF harvester: `dokang_pdf <http://github.com/Polyconseil/dokang_pdf>`_.
+- PDF harvester: `dokang_pdf <https://pypi.python.org/pypi/dokang_pdf>`_.
 
 
 .. _advanced_cli_ref:

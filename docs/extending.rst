@@ -2,16 +2,16 @@ Extending Dokang
 ================
 
 Dokang currently supports a single backend: Whoosh. Whoosh is
-responsible of the indexation and the actual search. As of now, Dokang
+responsible for the indexation and the actual search. As of now, Dokang
 does not let you easily use another backend such as Elasticsearch.
 Contributions are welcome.
 
 However, you may want to add your own harvester. The harvester is
-responsible to retrieve data (title and content) from a document.
+responsible for retrieving data (title and content) from a document.
 Dokang provides a few harvesters but you may implement your own.
 
-An harvester should be a subclass of ``dokang.harvesters.Harvester``
-and implement an ``harvest_file(path)`` method that should return a
+A harvester should be a subclass of ``dokang.harvesters.Harvester``
+and implement a ``harvest_file(path)`` method that should return a
 dictionary with the following keys. All values should be text-like: a
 string (in Python 3) or a unicode object (in Python 2).
 

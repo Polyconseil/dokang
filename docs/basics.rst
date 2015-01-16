@@ -62,7 +62,7 @@ Configuration is twofold:
        directory that holds the INI file.
 
    You may want to start from the example file and only customize
-   these two values. For further details about Pyramid-related
+   these three values. For further details about Pyramid-related
    settings, see `the corresponding section
    <http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/environment.html>`_
    as well as the `Logging
@@ -113,7 +113,7 @@ Configuration is twofold:
        frontend. Dokang does **not** serve the indexed documents, it
        provides only a link to them.
 
-   Each text-like value should a string (in Python 3) or a unicode
+   Each text-like value should be a string (in Python 3) or a unicode
    object (in Python 2).
 
    A sample file can be found in the source as `doc_sets.py.sample
