@@ -1,4 +1,4 @@
-body, 
+body,
 p, div, ol, li,
 form, input
 img {
@@ -11,7 +11,7 @@ img {
 }
 
 body {
-    background-color: #fcfc;
+    background-color: #fcfcfc;
     color: #404040;
     font-size: 100%; /* 16px */
 }

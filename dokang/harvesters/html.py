@@ -22,20 +22,15 @@ class HtmlHarvester(Harvester):
             'kind': 'HTML',
         }
 
-    def _retrieve_title_and_content(self, soup):
+    @staticmethod
+    def _retrieve_title_and_content(soup):
         title = soup.title.string.strip()
         content = soup.find('body').get_text().strip()
         return title, content
 
 
-def html_config(
-        harvester=HtmlHarvester,
-        include=None,
-        exclude=None,
-        **extensions):
-    """Return a configuration that is suitable for an HTML document
-    set.
-    """
+def html_config(harvester=HtmlHarvester, include=None, exclude=None, **extensions):
+    """Return a configuration that is suitable for an HTML document set."""
     config = {
         'include': include,
         'exclude': exclude,

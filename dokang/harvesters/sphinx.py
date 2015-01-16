@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 from dokang.harvesters import Harvester
 
 
-logger = logging.getLogger("dokang")
+logger = logging.getLogger(__name__)
 
 
 class SphinxHarvester(Harvester):
@@ -65,16 +65,11 @@ class ReadTheDocsSphinxHarvester(SphinxHarvester):
         return title, content
 
 
-def sphinx_config(
-        harvester=SphinxHarvester,
-        include=None,
-        exclude=None,
-        **extensions):
-    """Return a configuration that is suitable for a Sphinx-based
-    documentation.
+def sphinx_config(harvester=SphinxHarvester, include=None, exclude=None, **extensions):
+    """
+    Return a configuration that is suitable for a Sphinx-based documentation.
 
-    If the documentation uses "Read The Docs" theme, you should rather
-    use ``sphinx_rtd_config``.
+    If the documentation uses "Read The Docs" theme, you should rather use ``sphinx_rtd_config``.
     """
     # Exclude automatically generated HTML files such as 'search.html'
     if include is None:
@@ -91,12 +86,6 @@ def sphinx_config(
     return config
 
 
-def sphinx_rtd_config(
-        harvester=ReadTheDocsSphinxHarvester,
-        include=None,
-        exclude=None,
-        **extensions):
-    """Return a configuration that is suitable for a Sphinx-based
-    documentation that uses the ReadTheDocs theme.
-    """
+def sphinx_rtd_config(harvester=ReadTheDocsSphinxHarvester, include=None, exclude=None, **extensions):
+    """Return a configuration that is suitable for a Sphinx-based documentation that uses the ReadTheDocs theme."""
     return sphinx_config(harvester=harvester, include=include, exclude=exclude, **extensions)

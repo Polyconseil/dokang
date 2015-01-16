@@ -10,7 +10,7 @@ from dokang.backends import whoosh
 from dokang import harvesters
 
 
-logger = logging.getLogger('dokang')
+logger = logging.getLogger(__name__)
 
 
 # This API is very dependent on the Whoosh backend. This is not
@@ -41,8 +41,7 @@ def index_document_set(index_path, info, force=False):
     doc_set = info['id']
     logger.info('Indexing doc set "%s"...', doc_set)
 
-    # Unindex documents that have been deleted from the document
-    # set.
+    # Unindex documents that have been deleted from the document set.
     to_be_deleted = []
     for relative_path in mtimes[doc_set].keys():
         path = os.path.join(info['path'], relative_path)

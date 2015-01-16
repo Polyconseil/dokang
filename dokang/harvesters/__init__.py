@@ -7,12 +7,13 @@ import re
 
 from .base import Harvester  # pylint: disable=unused-import
 from .html import html_config, HtmlHarvester  # pylint: disable=unused-import
-from .sphinx import (
+from .sphinx import (  # pylint: disable=unused-import
     sphinx_config, sphinx_rtd_config,
-    SphinxHarvester, ReadTheDocsSphinxHarvester)  # pylint: disable=unused-import
+    SphinxHarvester, ReadTheDocsSphinxHarvester
+)
 
 
-logger = logging.getLogger("dokang")
+logger = logging.getLogger(__name__)
 
 
 def _must_process_path(path, include, exclude):
@@ -50,9 +51,9 @@ def harvest_set(base_dir, doc_set, config, mtimes, force):
     include = [re.compile(exp) for exp in config_copy.pop('include') or ()]
     exclude = [re.compile(exp) for exp in config_copy.pop('exclude') or ()]
     extensions = config_copy
-    for dirpath, _dirnames, filenames in os.walk(base_dir):
-        for filename in filenames:
-            path = os.path.join(dirpath, filename)
+    for dir_path, _dir_names, file_names in os.walk(base_dir):
+        for filename in file_names:
+            path = os.path.join(dir_path, filename)
             relative_path = os.path.relpath(path, base_dir)
             if not _must_process_path(relative_path, include, exclude):
                 logger.debug('Excluded file "%s": include/exclude rules.', relative_path)
@@ -63,9 +64,9 @@ def harvest_set(base_dir, doc_set, config, mtimes, force):
             if harvester_class is None:
                 logger.debug('Excluded file "%s": no harvester found for %s.', relative_path, extension)
                 continue
-            mtime = os.path.getmtime(path)
-            indexed_mtime = mtimes.get(relative_path)
-            if not force and (indexed_mtime and indexed_mtime >= mtime):
+            modification_time = os.path.getmtime(path)
+            indexed_modification_time = mtimes.get(relative_path)
+            if not force and (indexed_modification_time and indexed_modification_time >= modification_time):
                 logger.debug('Excluded file: "%s": not modified since last indexation.', relative_path)
                 continue
             try:
@@ -77,5 +78,5 @@ def harvest_set(base_dir, doc_set, config, mtimes, force):
                 if doc:
                     doc['path'] = relative_path
                     doc['set'] = doc_set
-                    doc['mtime'] = mtime
+                    doc['mtime'] = modification_time
                     yield doc

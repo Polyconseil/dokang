@@ -17,7 +17,6 @@ def make_app(global_settings, **settings):
     # Routes and views for static and home page
     config.add_static_view('static', 'static')
     config.add_route('search', '/')
-    config.add_view('.views.search', route_name='search',
-                    renderer='templates/search.pt')
+    config.add_view('.views.search', route_name='search', renderer='templates/search.pt')
 
     return config.make_wsgi_app()

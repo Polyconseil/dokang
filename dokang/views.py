@@ -33,19 +33,20 @@ def search(request):
             hit['doc_set_title'] = doc_sets[hit['set']]['title']
     else:
         hits = None
-    return {'api': TemplateApi(request),
-            'query': raw_query,
-            'only_doc_set': only_doc_set,
-            'doc_sets': sorted(doc_sets.values(), key=lambda d: d['title'].lower()),
-            'hits': hits}
+    return {
+        'api': TemplateApi(request),
+        'query': raw_query,
+        'only_doc_set': only_doc_set,
+        'doc_sets': sorted(doc_sets.values(), key=lambda d: d['title'].lower()),
+        'hits': hits
+    }
 
 
 class TemplateApi(object):
-    """Provide a master template and various information and utilities
-    that can be used in any template.
+    """
+    Provide a master template and various information and utilities that can be used in any template.
 
-    Not that we really need that for a single template but, well,
-    that's what I usually do...
+    Not that we really need that for a single template but, well, that's what I usually do...
     """
 
     def __init__(self, request):

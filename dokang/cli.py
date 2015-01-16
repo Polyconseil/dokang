@@ -13,7 +13,7 @@ from dokang.utils import load_doc_sets
 from dokang.version import VERSION
 from dokang import compat
 
-logger = logging.getLogger("dokang")
+logger = logging.getLogger(__name__)
 
 
 def main():
@@ -60,10 +60,10 @@ def search(settings, query):
 def parse_args(args):
     parser = argparse.ArgumentParser(
         prog="Dokang",
-        description='A lightweight search engine for HTML documents.')
+        description='A lightweight search engine for HTML documents.'
+    )
     parser.add_argument('--version', action='version', version='%%(prog)s %s' % VERSION)
-    parser.add_argument('--settings',
-        action='store', help="Path of the setting file.", metavar='PATH')
+    parser.add_argument('--settings', action='store', help="Path of the setting file.", metavar='PATH')
 
     subparsers = parser.add_subparsers()
 
@@ -73,7 +73,8 @@ def parse_args(args):
     parser_init.add_argument(
         '--force',
         action='store_true',
-        help="If set, delete the index if it already exists.")
+        help="If set, delete the index if it already exists."
+    )
 
     # index
     parser_index = subparsers.add_parser('index', help='Populate the index.')
@@ -83,11 +84,13 @@ def parse_args(args):
         action='store',
         dest='only_doc_set',
         metavar='DOC_SET_ID',
-        help="If set, only index the given document set.")
+        help="If set, only index the given document set."
+    )
     parser_index.add_argument(
         '--force',
         action='store_true',
-        help="If set, reindex all documents even those that have not been modified since the last indexation.")
+        help="If set, reindex all documents even those that have not been modified since the last indexation."
+    )
 
     # clear
     parser_clear = subparsers.add_parser('clear', help='Remove a document set.')
@@ -96,7 +99,8 @@ def parse_args(args):
         'docset',
         action='store',
         metavar='DOC_SET_ID',
-        help="The id of the document set to remove.")
+        help="The id of the document set to remove."
+    )
 
     # search
     parser_search = subparsers.add_parser('search', help="Search in the index.")

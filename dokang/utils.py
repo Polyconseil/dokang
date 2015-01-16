@@ -5,7 +5,8 @@ import imp
 
 
 def load_doc_sets(settings):
-    """Given a settings dictionnary with the path of the doc sets file,
+    """
+    Given a settings dictionary with the path of the doc sets file,
     replace the path (in-place) with the doc sets themselves.
     """
     key = 'dokang.doc_sets'
