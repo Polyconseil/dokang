@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 
 import argparse
 import logging
+import logging.config
 import os
 import sys
 
@@ -115,12 +116,7 @@ def load_settings(path):
     config = compat.ConfigParser(defaults={'here': here})
     config.read(path)
     settings = dict(config.items('app:main'))
-    handler = logging.StreamHandler()
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
-    log_level = config.get('logger_dokang', 'level')
-    logger.setLevel(getattr(logging, log_level))
+    logging.config.fileConfig(path)
     settings = load_doc_sets(settings)
     return settings
 
