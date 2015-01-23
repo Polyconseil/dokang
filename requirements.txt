@@ -3,3 +3,4 @@ Chameleon==2.16
 pyramid==1.5
 pyramid_chameleon==0.1
 Whoosh==2.6.0
+WTForms==2.0.1

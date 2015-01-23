@@ -43,13 +43,3 @@ Here is an example of a simple harvester for text files.
                    'content: 'fp.read()',
                    'kind': 'TXT',
                }
-
-You may then use it in your configuration file, like this:
-
-.. code:: python
-
-   DOC_SETS = (
-    {'harvester': {
-       '.txt': TextHarvester},
-     # [...]
-    }

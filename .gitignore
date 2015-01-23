@@ -6,22 +6,15 @@
 
 # Testing and co
 reports/
-private/
-public/
-/static/
 .tox
 # Build-related files
-docs/_build
 .coverage
 *.egg-info
 *.egg
 setup.cfg
 build/
 dist/
-/reports/
 
 .DS_Store
 .idea
 
-whoosh_index
-doc_sets.py

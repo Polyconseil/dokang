@@ -29,100 +29,62 @@ the Git repository.
 Configuration
 -------------
 
-.. note::
+The entry point is an ``INI`` configuration file, an example of
+which is shipped with the source as ``dev.ini``. It controls both
+the configuration of the web frontend and the general settings. The
+latter are defined by ``dokang.*`` options:
 
-   Dokang is extensible at the expense of the readability of the
-   configuration. Balance is hard. Suggestions are welcome.
-
-
-Configuration is twofold:
-
-1. The entry point is an ``INI`` configuration file, an example of
-   which is shipped with the source as ``dev.ini``. It controls both
-   the configuration of the web frontend and the general settings. The
-   latter are defined by ``dokang.*`` options:
-
-   dokang.hit_limit
+    dokang.hit_limit
        The maximum number of search results to fetch. It must be a
        positive number. If equals to 0 (or if the option is omitted
        from the file), no limit is set: all results are returned.
 
        Default: no limit.
 
-   dokang.index_path
-       The path of the index created by the Whoosh backend. It is a
-       directory that will be created on-the-fly when
-       :ref:`initializing the index <cli_init>`.
+    dokang.index_path
+        The path of the index created by the Whoosh backend. It is a
+        directory that will be created on-the-fly when
+        :ref:`initializing the index <cli_init>`.
 
-   dokang.doc_sets
-       The path of the second configuration file (see below) that
-       lists document sets.
+    dokang.uploaded_docs.dir
+        The path where HTML documentation is uploaded.
 
-       To define this path, you may use ``%(here)s`` to denote the
-       directory that holds the INI file.
+        To define this path, you may use ``%(here)s`` to denote the
+        directory that holds the INI file.
+
+    dokang.uploaded_docs.token
+        The identification token used to allow documentation upload.
+
+    dokang.uploaded_docs.harvester
+        The harvester to use for all projects (fully qualified class name).
 
    You may want to start from the example file and only customize
-   these three values. For further details about Pyramid-related
+   these five values. For further details about Pyramid-related
    settings, see `the corresponding section
    <http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/environment.html>`_
    as well as the `Logging
    <http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/logging.html>`_
    section in the Pyramid documentation.
 
-2. A second file (usually called ``doc_sets.py``), lists all document
-   sets with their properties: title, URL, etc. It is a regular Python
-   file that must define a ``DOC_SETS`` sequence, like this:
+Upload and index documentation
+------------------------------
 
-   .. code:: python
+Supposing you have a running Dokang instance on http://dokang.example.com,
+and you want to upload the documentation of your project, you need to:
 
-      from dokang.harvesters import sphinx_rtd_config
+- zip the documentation (your zip file must have a top-level index.html);
+- post your documentation on http://dokang.example.com/upload/ using ``multipart/form-data`` content type and
+  the following fields:
 
-      DOC_SETS = (
-          {'id': dokang',
-           'title': "Dokang",
-           'path': '/home/docs/dokang/_build/html',
-           'harvester': sphinx_rtd_config(),
-           'url': 'http://docs.exemple.com/dokang',
-          },
-      )
+  - ``:action`` with value  ``doc_upload``
+  - ``name`` with project name
+  - ``content`` with the zipfile
 
-   Each item of ``DOC_SETS`` must be a dictionary with the following
-   keys:
+.. code-block:: bash
 
-   id
-       The id of the document set. It must be unique in ``DOC_SETS``.
-
-   title
-       The title of the document set. This title is displayed along
-       search results by the command-line client and the web frontend.
-
-   path
-       The local path of the directory that holds the documents.
-
-   harvester
-       A dictionary that holds the configuration of the harvester,
-       which is the component that is responsible of retrieving
-       content and metadata (title) from each file. Dokang ships with
-       a few utilities that provide sane values.
-
-       See :ref:`advanced_harvester_config` in the next chapter for
-       further details.
-
-   url
-       The base URL of the document set. This URL is used by the web
-       frontend. Dokang does **not** serve the indexed documents, it
-       provides only a link to them.
-
-   Each text-like value should be a string (in Python 3) or a unicode
-   object (in Python 2).
-
-   A sample file can be found in the source as `doc_sets.py.sample
-   <https://github.com/Polyconseil/dokang/blob/master/doc_sets.py.sample>`_.
-
-.. note::
-
-   Having two configuration files is a bit unfortunate but it helps
-   running the web frontend.
+    $ cd project_html_built_doc/
+    $ 7z a ../documentation.zip .
+    $ curl -X POST --form name=project_name -F ":action=doc_upload" -F content=@../documentation.zip http://dokang:my-secret-token@dokang.example.com/upload
 
 
 Using Dokang from the command line

@@ -19,4 +19,9 @@ def make_app(global_settings, **settings):
     config.add_route('search', '/')
     config.add_view('.views.search', route_name='search', renderer='templates/search.pt')
 
+    uploaded_docs_dir = settings.get('dokang.uploaded_docs.dir')
+    config.add_static_view('uploaded', uploaded_docs_dir)
+    config.add_route('doc_upload', '/upload')
+    config.add_view('.views.doc_upload', route_name='doc_upload')
+
     return config.make_wsgi_app()
