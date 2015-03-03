@@ -34,37 +34,38 @@ which is shipped with the source as ``dev.ini``. It controls both
 the configuration of the web frontend and the general settings. The
 latter are defined by ``dokang.*`` options:
 
-    dokang.hit_limit
-       The maximum number of search results to fetch. It must be a
-       positive number. If equals to 0 (or if the option is omitted
-       from the file), no limit is set: all results are returned.
+dokang.hit_limit
+   The maximum number of search results to fetch. It must be a
+   positive number. If equals to 0 (or if the option is omitted
+   from the file), no limit is set: all results are returned.
 
-       Default: no limit.
+   Default: no limit.
 
-    dokang.index_path
-        The path of the index created by the Whoosh backend. It is a
-        directory that will be created on-the-fly when
-        :ref:`initializing the index <cli_init>`.
+dokang.index_path
+    The path of the index created by the Whoosh backend. It is a
+    directory that will be created on-the-fly when
+    :ref:`initializing the index <cli_init>`.
 
-    dokang.uploaded_docs.dir
-        The path where HTML documentation is uploaded.
+dokang.uploaded_docs.dir
+    The path where HTML documentation is uploaded.
 
-        To define this path, you may use ``%(here)s`` to denote the
-        directory that holds the INI file.
+    To define this path, you may use ``%(here)s`` to denote the
+    directory that holds the INI file.
 
-    dokang.uploaded_docs.token
-        The identification token used to allow documentation upload.
+dokang.uploaded_docs.token
+    The identification token used to allow documentation upload.
 
-    dokang.uploaded_docs.harvester
-        The harvester to use for all projects (fully qualified class name).
+dokang.uploaded_docs.harvester
+    The harvester to use for all projects (fully qualified class name).
 
-   You may want to start from the example file and only customize
-   these five values. For further details about Pyramid-related
-   settings, see `the corresponding section
-   <http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/environment.html>`_
-   as well as the `Logging
-   <http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/logging.html>`_
-   section in the Pyramid documentation.
+You may want to start from the example file and only customize
+these five values. For further details about Pyramid-related
+settings, see `the corresponding section
+<http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/environment.html>`_
+as well as the `Logging
+<http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/logging.html>`_
+section in the Pyramid documentation.
+
 
 Upload and index documentation
 ------------------------------
