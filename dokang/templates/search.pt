@@ -6,7 +6,7 @@
       <select onchange="window.location = this[this.selectedIndex].value;">
         <option>Jump to documentation&hellip;</option>
         <option tal:repeat="doc_set doc_sets"
-                value="${ request.static_url(doc_set['path']) }">${ doc_set['title'] }</option>
+                value="${ api.doc_url(doc_set['id']) }">${ doc_set['title'] }</option>
       </select>
     </form>
     <form  class="search-form" method="get">
@@ -23,7 +23,7 @@
 
 <ul class="doc-sets" tal:condition="not query">
   <li tal:repeat="doc_set doc_sets">
-    <a href="${ request.static_url(doc_set['path']) }">${ doc_set['title'] }</a>
+    <a href="${ api.doc_url(doc_set['id']) }">${ doc_set['title'] }</a>
   </li>
 </ul>
 

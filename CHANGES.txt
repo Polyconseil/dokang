@@ -4,7 +4,18 @@ Change log
 Next version (unreleased)
 -------------------------
 
-- Drop Python 2.6 support
+- Drop Python 2.6 support.
+
+- Make documentation available from the root of Dokang ("/"). This
+  change is backward-incompatible.
+
+  Before this commit, if the upload dir was named "uploaded", the
+  documentation would be available at ``/uploaded/<doc_set_id>``. This
+  was a bit too verbose.
+    
+  With this (backward-incompatible) change, the documentation is now
+  available at ``/<doc_set_id>``.
+
 
 
 Dokang 0.5.0 (2015-02-18)

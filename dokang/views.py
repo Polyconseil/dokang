@@ -67,9 +67,14 @@ class TemplateApi(object):
         return self.request.route_url(route_name, *elements, **kw)
 
     def hit_url(self, hit):
-        doc_sets = self.request.registry.settings['dokang.doc_sets']
-        base_url = self.request.static_url(doc_sets[hit['set']]['path'])
-        return '/'.join((base_url, hit['path']))
+        return self.doc_url(hit['set'], hit['path'])
+
+    def doc_url(self, doc_set_id, path=''):
+        # We suppose that the id of the document set is used to create
+        # the upload directory. This is what `utils.doc_set()` does.
+        # This assumption simplifies the code here.
+        subpath = os.path.join(doc_set_id, path)
+        return self.route_url('catch_all_doc_view', subpath=subpath)
 
     def static_url(self, path, **kw):
         if ':' not in path:
