@@ -1,7 +1,7 @@
 Change log
 ==========
 
-Next version (unreleased)
+Dokang 0.6.0 (2015-03-03)
 -------------------------
 
 - Drop Python 2.6 support.
@@ -15,7 +15,6 @@ Next version (unreleased)
     
   With this (backward-incompatible) change, the documentation is now
   available at ``/<doc_set_id>``.
-
 
 
 Dokang 0.5.0 (2015-02-18)
