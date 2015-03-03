@@ -150,4 +150,4 @@ def doc_upload(request):  # Route is not activated when dokang.uploaded_docs.dir
     index_path = settings['dokang.index_path']
     api.index_document_set(index_path, doc_set_info, False)
 
-    return HTTPMovedPermanently(request.static_url(project_dir))
+    return HTTPMovedPermanently(request.route_url('catch_all_doc_view', subpath=project))

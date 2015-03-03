@@ -1,8 +1,16 @@
 Change log
 ==========
 
+Dokang 0.6.1 (2015-03-03)
+-------------------------
+
+- Fix redirection error when uploading documentation.
+
+
 Dokang 0.6.0 (2015-03-03)
 -------------------------
+
+**Brown bag release.**
 
 - Drop Python 2.6 support.
 
