@@ -4,6 +4,12 @@ Change log
 Next version (unreleased)
 -------------------------
 
+- Drop Python 2.6 support
+
+
+Dokang 0.5.0 (2015-02-18)
+-------------------------
+
 - Add "highlight" in the query string of the URLs of search results.
   This parameter is understood by Sphinx-generated HTML files.
 

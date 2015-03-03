@@ -14,9 +14,6 @@ def load_requirements(path, dev=True):
     with open(path) as fp:
         reqs = [line for line in fp.read().split("\n")
             if line and not line.startswith(("-r", "#"))]
-    if dev and sys.version[:3] < '2.7':
-        # Python 2.6 compatibility.
-        reqs.append('unittest2')
     return reqs
 
 
@@ -33,7 +30,6 @@ setup(name='Dokang',
         "Environment :: Console",
         "License :: OSI Approved :: BSD License",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.3",
