@@ -1,6 +1,12 @@
 Change log
 ==========
 
+Next version (not yet released)
+-------------------------------
+
+- Fix initialization process.
+
+
 Dokang 0.6.1 (2015-03-03)
 -------------------------
 
