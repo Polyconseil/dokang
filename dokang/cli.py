@@ -7,6 +7,7 @@ import argparse
 import logging
 import logging.config
 import os
+import shutil
 import sys
 
 from dokang import api
@@ -43,9 +44,12 @@ def index(settings, only_doc_set, force):
         api.index_document_set(index_path, info, force)
 
 
-def clear(settings, docset):
+def clear(settings, docset, purge=False):
     index_path = settings['dokang.index_path']
     api.clear_document_set(index_path, docset)
+    if purge:
+        logger.info('Deleting files of document set "%s".', docset)
+        shutil.rmtree(os.path.join(settings['dokang.uploaded_docs.dir'], docset))
 
 
 def search(settings, query):
@@ -96,6 +100,7 @@ def parse_args(args):
     # clear
     parser_clear = subparsers.add_parser('clear', help='Remove a document set.')
     parser_clear.set_defaults(callback=clear)
+    parser_clear.add_argument('--purge', action='store_true', help='Delete files of document set.')
     parser_clear.add_argument(
         'docset',
         action='store',
