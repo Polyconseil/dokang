@@ -5,7 +5,19 @@ Next version (not yet released)
 -------------------------------
 
 - Fix initialization process.
+
 - Add purge option to the clear cli command.
+
+- Fix change detection: we used to store and use the modification time
+  of the files. We now compute and store an MD5 hash for each file. It
+  is slower than getting the modification time, but it handles more
+  use cases.
+
+  **This is a backward-incompatible change.** You must reindex all
+  documents, like this::
+
+      dokang init --force
+      dokang index
 
 
 Dokang 0.6.1 (2015-03-03)

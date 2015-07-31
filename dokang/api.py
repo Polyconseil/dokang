@@ -31,19 +31,19 @@ def index_document_set(index_path, info, force=False):
     ``info`` should be a single item of the ``DOC_SETS`` configuration
     dictionary.
 
-    If ``force`` is provided, all documents are reindexed, ignoring
-    their last modification time.
+    If ``force`` is provided, all documents are reindexed again, even
+    if they were not modified.
     """
     indexer = whoosh.WhooshIndexer(index_path)
     searcher = whoosh.WhooshSearcher(index_path)
-    mtimes = searcher.get_modification_times()
+    hashes = searcher.get_hashes()
 
     doc_set = info['id']
     logger.info('Indexing doc set "%s"...', doc_set)
 
     # Unindex documents that have been deleted from the document set.
     to_be_deleted = []
-    for relative_path in mtimes[doc_set].keys():
+    for relative_path in hashes[doc_set].keys():
         path = os.path.join(info['path'], relative_path)
         if not os.path.exists(path):
             logger.debug('Marking indexed document "%s" for deletion.', relative_path)
@@ -51,13 +51,13 @@ def index_document_set(index_path, info, force=False):
     if to_be_deleted:
         indexer.delete_documents(to_be_deleted)
 
-    # Index or update all documents, or ignore them according to
-    # their last modification time.
+    # Index or update all documents, or ignore them if they did not
+    # change.
     documents = harvesters.harvest_set(
         info['path'],
         doc_set,
         info['harvester'],
-        mtimes.get(doc_set, {}),
+        hashes.get(doc_set, {}),
         force)
     indexer.index_documents(documents)
 

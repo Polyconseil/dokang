@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2011-2015 Polyconseil SAS. All rights reserved.
 
+import hashlib
 import logging
 import os
 import re
@@ -26,14 +27,26 @@ def _must_process_path(path, include, exclude):
     return True
 
 
-def harvest_set(base_dir, doc_set, config, mtimes, force):
+def _compute_hash(path):
+    h = hashlib.md5()
+    with open(path) as fp:
+        while 1:
+            buff = fp.read(8192)
+            if not buff:
+                break
+            h.update(buff)
+    return h.hexdigest()
+
+
+def harvest_set(base_dir, doc_set, config, hashes, force):
     """Harvest a document set and return documents as dictionaries.
 
     ``config`` is the harvester configuration. It should contain a key
-    for each supported file extensions. ``mtimes`` is a dictionary
-    that links the path of each indexed file to its last modification
-    time. ``force`` indicates whether to reindex a document even if it
-    has not ben modified since the last indexation.
+    for each supported file extensions. ``hashes`` is a dictionary
+    that links the path of each indexed file to its hash. It is used
+    to decide whether the document should be indexed again. ``force``
+    indicates whether to reindex a document even if it has not ben
+    modified since the last indexation.
 
     This function is a generator. It yields dictionaries. Each
     dictionary should represent a document and contain the following
@@ -64,9 +77,9 @@ def harvest_set(base_dir, doc_set, config, mtimes, force):
             if harvester_class is None:
                 logger.debug('Excluded file "%s": no harvester found for %s.', relative_path, extension)
                 continue
-            modification_time = os.path.getmtime(path)
-            indexed_modification_time = mtimes.get(relative_path)
-            if not force and (indexed_modification_time and indexed_modification_time >= modification_time):
+            current_hash = _compute_hash(path)
+            indexed_hash = hashes.get(relative_path)
+            if not force and (indexed_hash == current_hash):
                 logger.debug('Excluded file: "%s": not modified since last indexation.', relative_path)
                 continue
             try:
@@ -78,5 +91,5 @@ def harvest_set(base_dir, doc_set, config, mtimes, force):
                 if doc:
                     doc['path'] = relative_path
                     doc['set'] = doc_set
-                    doc['mtime'] = modification_time
+                    doc['hash'] = current_hash
                     yield doc

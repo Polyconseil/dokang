@@ -31,7 +31,7 @@ class WhooshIndexer(object):
             uid=ID(stored=False, unique=True),
             path=ID(stored=True),
             set=ID(stored=True),
-            mtime=STORED,  # not searchable
+            hash=STORED,  # not searchable
             title=TEXT(stored=True),
             content=TEXT(stored=False),
             kind=TEXT(stored=True),
@@ -57,7 +57,7 @@ class WhooshIndexer(object):
                 uid=':'.join((document['set'], document['path'])),
                 path=document['path'],
                 set=document['set'],
-                mtime=document['mtime'],
+                hash=document['hash'],
                 title=document['title'],
                 content=document['content'],
                 kind=document['kind'],
@@ -83,14 +83,14 @@ class WhooshSearcher(object):
     def __init__(self, index_path):
         self.index = open_dir(index_path)
 
-    def get_modification_times(self):
-        """Return the last modification time of each indexed document."""
+    def get_hashes(self):
+        """Return the hash of each indexed document."""
         # It is not as heavy as it seems.
-        mtimes = defaultdict(dict)
+        hashes = defaultdict(dict)
         with self.index.searcher() as searcher:
             for doc in searcher.all_stored_fields():
-                mtimes[doc['set']][doc['path']] = doc['mtime']
-        return mtimes
+                hashes[doc['set']][doc['path']] = doc['hash']
+        return hashes
 
     def search(self, query_string, limit=None):
         """Search the query string in the index."""
