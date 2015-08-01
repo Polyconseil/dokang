@@ -29,7 +29,7 @@ def _must_process_path(path, include, exclude):
 
 def _compute_hash(path):
     h = hashlib.md5()
-    with open(path) as fp:
+    with open(path, 'rb') as fp:
         while 1:
             buff = fp.read(8192)
             if not buff:

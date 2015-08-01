@@ -50,3 +50,12 @@ class TestReadTheDocsSphinxHarvester(TestCase):
         self.assertEqual(document['title'], "The title")
         self.assertIn("ShouldBeIndexed", document['content'])
         self.assertNotIn("ShouldNotBeIndexed", document['content'])
+
+
+class TestComputeHash(TestCase):
+    def test_basics(self):
+        for filename, known_hash in (
+            ('html.utf8.html', '9bac2a167ae679a89d5f9f7df331f673'),
+            ('html.latin1.html', '9d13dea55e12716bcf01a3f63868babb')):
+            path = get_data_path('harvesters', filename)
+            self.assertEqual(harvesters._compute_hash(path), known_hash)
