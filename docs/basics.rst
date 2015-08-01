@@ -8,20 +8,24 @@ to search in the documentation of Dokang itself.
 Concepts
 --------
 
-A key concept in Dokang is the "document set". A document set
-represents a set of related documents (files) that resides in a
-directory (and its sub-directories), for example the documentation of
-a single project. You may instruct Dokang to index one or more
-document sets, and then search in all or only a single set. It's so
-new and brilliant that I am going to trademark and patent all this.
+A *document set* represents a single documentation, i.e. a set of
+related documents (files) that resides in a directory and its
+sub-directories, for example this documentation of Dokang. You may
+instruct Dokang to index one or more document sets, and then search in
+all sets or only one.
+
+A *harvester* extracts content from a file: a list of words and a few
+metadata, like the title.
 
 
 Installation
 ------------
 
 In a brand new virtual environment, install with ``pip install
-Dokang``, or ``pip install -r requirements.txt`` if you have cloned
-the Git repository.
+Dokang``. If you have cloned the `Git repository`_, use ``pip
+install -r requirements.txt`` instead.
+
+.. _Git repository: https://github.com/Polyconseil/Dokang
 
 
 .. _basics_configuration:
@@ -29,10 +33,12 @@ the Git repository.
 Configuration
 -------------
 
-The entry point is an ``INI`` configuration file, an example of
-which is shipped with the source as ``dev.ini``. It controls both
-the configuration of the web frontend and the general settings. The
-latter are defined by ``dokang.*`` options:
+The entry point is an ``INI`` configuration file, an example of which
+is shipped with the source as `dev.ini`_. It controls both the
+configuration of the web frontend and general settings. The latter are
+defined by ``dokang.*`` options:
+
+.. _dev.ini: https://github.com/Polyconseil/dokang/blob/master/dev.ini
 
 dokang.hit_limit
    The maximum number of search results to fetch. It must be a
@@ -44,7 +50,7 @@ dokang.hit_limit
 dokang.index_path
     The path of the index created by the Whoosh backend. It is a
     directory that will be created on-the-fly when
-    :ref:`initializing the index <cli_init>`.
+    :ref:`the index is initialized <cli_init>`.
 
 dokang.uploaded_docs.dir
     The path where HTML documentation is uploaded.
@@ -56,7 +62,8 @@ dokang.uploaded_docs.token
     The identification token used to allow documentation upload.
 
 dokang.uploaded_docs.harvester
-    The harvester to use for all projects (fully qualified class name).
+    The harvester to use for all projects (fully qualified Python
+    class name).
 
 You may want to start from the example file and only customize
 these five values. For further details about Pyramid-related
@@ -67,35 +74,14 @@ as well as the `Logging
 section in the Pyramid documentation.
 
 
-Upload and index documentation
-------------------------------
-
-Supposing you have a running Dokang instance on http://dokang.example.com,
-and you want to upload the documentation of your project, you need to:
-
-- zip the documentation (your zip file must have a top-level index.html);
-- post your documentation on http://dokang.example.com/upload/ using ``multipart/form-data`` content type and
-  the following fields:
-
-  - ``:action`` with value  ``doc_upload``
-  - ``name`` with project name
-  - ``content`` with the zipfile
-
-.. code-block:: bash
-
-    $ cd project_html_built_doc/
-    $ 7z a ../documentation.zip .
-    $ curl -X POST --form name=project_name -F ":action=doc_upload" -F content=@../documentation.zip http://dokang:my-secret-token@dokang.example.com/upload
-
-
-Using Dokang from the command line
-----------------------------------
+Initializing the index
+----------------------
 
 .. _cli_init:
 
-Once you have created the configuration files, you must initialize the
-index. You may do so with the ``init`` command of the command-line
-client:
+Once you have created the configuration file, you must initialize the
+search index. You may do so with the ``init`` command of the
+command-line client:
 
 .. code:: bash
 
@@ -115,28 +101,15 @@ environment variable and then omit the ``--settings`` option:
 
    $ export DOKANG_SETTINGS=/path/to/your/ini.file
 
-You may now index documents by using the ``index`` command:
-
-.. code:: bash
-
-   $ dokang index
-
-And finally search the index with the ``search`` command:
-
-.. code:: bash
-
-   $ dokang search needle
-
 For further details about the arguments and options of the
 command line client, see :ref:`advanced_cli_ref`.
 
 
-Web frontend
-------------
+Starting Dokang
+---------------
 
-Dokang ships with a lightweight web frontend. The INI configuration
-file described above is a valid WSGI configuration file that you may
-use with your favorite WSGI server.
+The INI configuration file described above is a valid WSGI
+configuration file that you may use with your favorite WSGI server.
 
 On a development machine, you may want to use something like
 Waitress_.  First, install Waitress:
@@ -156,3 +129,34 @@ Then run it:
 See the documentation of Waitress for further details.
 
 .. _Waitress: http://waitress.readthedocs.org
+
+
+Upload and index documentation
+------------------------------
+
+If you visit http://localhost:6543 in a web browser, the page will be
+quite empty. Let's upload the documentation of a project:
+
+- zip the documentation (your ZIP file must have a top-level
+  "index.html");
+- post your documentation on http://localhost:6543/upload/ using
+  ``multipart/form-data`` content type and the following fields:
+
+  - ``:action``, must be ``doc_upload``,
+  - ``name``, the name of your project,
+  - ``content``, the ZIP file.
+
+.. code-block:: bash
+
+    $ cd project_html_doc/
+    $ 7z a ../documentation.zip .
+    $ curl -X POST \
+           --form name=project_name \
+           -F ":action=doc_upload" \
+           -F content=@../documentation.zip \
+           http://dokang:my-secret-token@localhost:6543/upload
+
+You should see a success message. If you refresh
+http://localhost:6543/ in your web browser, you should now be able to
+search and find terms that appear in the documentation you have
+uploaded.

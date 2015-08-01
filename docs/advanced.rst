@@ -67,7 +67,23 @@ is a list of the known ones:
 Command line reference
 ----------------------
 
-Herebelow are the list of available commands of the ``dokang`` command
+All commands of the ``dokang`` command line program accept a
+``--settings`` argument that is the path to the configuration file:
+
+.. code:: bash
+
+    $ dokang --settings=dev.ini init
+
+Providing the configuration file in every command may be
+cumbersome. To work around that, you may define a ``DOKANG_SETTINGS``
+environment variable and then omit the ``--settings`` option:
+
+.. code:: bash
+
+   $ export DOKANG_SETTINGS=/path/to/your/ini.file
+   $ dokang init
+
+Herebelow is the list of available commands of the ``dokang`` command
 line program:
 
 ``--help``

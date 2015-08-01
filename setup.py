@@ -1,6 +1,5 @@
 import os
 import re
-import sys
 
 from setuptools import setup, find_packages
 
@@ -23,7 +22,7 @@ CHANGES = open(os.path.join(here, 'CHANGES.txt')).read().strip()
 
 setup(name='Dokang',
       version=VERSION,
-      description="Lightweight search engine with a web frontend",
+      description="Lightweight web documentation repository with a search engine",
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
         "Development Status :: 4 - Beta",

@@ -4,9 +4,10 @@ Change log
 Next version (not yet released)
 -------------------------------
 
-- Fix initialization process.
+- When initializing the index, ``dokang init`` now creates all needed
+  intermediate-level directories.
 
-- Add purge option to the clear cli command.
+- Add purge option to ``dokang clear`` to delete uploaded files.
 
 - Fix change detection: we used to store and use the modification time
   of the files. We now compute and store an MD5 hash for each file. It
