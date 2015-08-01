@@ -14,7 +14,7 @@ class HtmlHarvester(Harvester):
     def harvest_file(self, path):
         with open(path, 'rb') as fp:
             html = fp.read()
-        soup = BeautifulSoup(html)
+        soup = BeautifulSoup(html, 'html.parser')
         title, content = self._retrieve_title_and_content(soup)
         return {
             'title': title,

@@ -1,6 +1,6 @@
-beautifulsoup4==4.3.2
-Chameleon==2.16
-pyramid==1.5
-pyramid_chameleon==0.1
-Whoosh==2.6.0
-WTForms==2.0.1
+beautifulsoup4==4.4.0
+Chameleon==2.22
+pyramid==1.5.7
+pyramid_chameleon==0.3
+Whoosh==2.7.0
+WTForms==2.0.2
