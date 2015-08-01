@@ -6,5 +6,5 @@ recursive-include docs *.py *.rst
 include docs/_static/.keep_dir
 prune docs/_build
 
-recursive-include *.py
+recursive-include dokang *.py
 include dev.ini dokang/static/css/*.css dokang/templates/*.pt
