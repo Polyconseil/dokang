@@ -29,6 +29,13 @@ class TestHtmlHarvester(TestCase):
         self.assertIn("ShouldBeIndexed", document['content'])
         self.assertNotIn("ShouldNotBeIndexed", document['content'])
 
+    def test_non_ascii_file(self):
+        for filename in ('html.utf8.html', 'html.latin1.html'):
+            path = get_data_path('harvesters', filename)
+            harvester = harvesters.HtmlHarvester()
+            document = harvester.harvest_file(path)
+            self.assertEqual(document['title'], "Un titre accentué")
+            self.assertIn("accentué", document['content'])
 
 class TestSphinxHarvester(TestCase):
 
@@ -40,6 +47,12 @@ class TestSphinxHarvester(TestCase):
         self.assertIn("ShouldBeIndexed", document['content'])
         self.assertNotIn("ShouldNotBeIndexed", document['content'])
 
+    def test_non_ascii_file(self):
+        path = get_data_path('harvesters', 'sphinx.latin1.html')
+        harvester = harvesters.SphinxHarvester()
+        document = harvester.harvest_file(path)
+        self.assertEqual(document['title'], "Un titre accentué")
+        self.assertIn("accentué", document['content'])
 
 class TestReadTheDocsSphinxHarvester(TestCase):
 

@@ -23,6 +23,9 @@ Next version (not yet released)
 - Remove bogus indexation optimization. The indexation should be a lot
   faster now, especially on large document base.
 
+- Fix encoding error when parsing non-ASCII, non-UTF 8 HTML
+  files. UTF-8 files were correctly processed, though.
+
 
 Dokang 0.6.1 (2015-03-03)
 -------------------------
