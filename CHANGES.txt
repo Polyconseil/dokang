@@ -19,6 +19,9 @@ Next version (not yet released)
       dokang init --force
       dokang index
 
+- Remove bogus indexation optimization. The indexation should be a lot
+  faster now, especially on large document base.
+
 
 Dokang 0.6.1 (2015-03-03)
 -------------------------

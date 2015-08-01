@@ -62,10 +62,8 @@ class WhooshIndexer(object):
                 content=document['content'],
                 kind=document['kind'],
             )
-        # optimize=True results in slower indexation but faster
-        # search. That will do.
         if needs_commit:
-            writer.commit(optimize=True)
+            writer.commit()
 
     def delete_documents(self, paths):
         """Delete documents from the index."""
@@ -74,7 +72,7 @@ class WhooshIndexer(object):
         # FIXME: could we avoid the loop?
         for path in paths:
             writer.delete_by_term('path', path)
-        writer.commit(optimize=True)
+        writer.commit()
 
 
 class WhooshSearcher(object):
