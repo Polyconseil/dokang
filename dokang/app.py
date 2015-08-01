@@ -20,6 +20,10 @@ def make_app(global_settings, **settings):
     config.add_route('search', '/')
     config.add_view('.views.search', route_name='search', renderer='templates/search.pt')
 
+    # OpenSearch
+    config.add_route('opensearch', '/opensearch.xml')
+    config.add_view('.views.opensearch', route_name='opensearch')
+
     # Upload endpoint
     config.add_route('doc_upload', '/upload')
     config.add_view('.views.doc_upload', route_name='doc_upload')

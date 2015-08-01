@@ -26,6 +26,8 @@ Next version (not yet released)
 - Fix encoding error when parsing non-ASCII, non-UTF 8 HTML
   files. UTF-8 files were correctly processed, though.
 
+- Add basic support for OpenSearch.
+
 
 Dokang 0.6.1 (2015-03-03)
 -------------------------

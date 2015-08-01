@@ -65,9 +65,17 @@ dokang.uploaded_docs.harvester
     The harvester to use for all projects (fully qualified Python
     class name).
 
-You may want to start from the example file and only customize
-these five values. For further details about Pyramid-related
-settings, see `the corresponding section
+dokang.opensearch.name
+    The name of your documentation repository, for OpenSearch (see
+    :ref:`below <opensearch>`).
+
+dokang.opensearch.name
+    A description of your documentation repository, for OpenSearch (see
+    :ref:`below <opensearch>`).
+
+You may want to start from the example file and only customize these
+values. For further details about Pyramid-related settings, see `the
+corresponding section
 <http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/environment.html>`_
 as well as the `Logging
 <http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/logging.html>`_
@@ -160,3 +168,13 @@ You should see a success message. If you refresh
 http://localhost:6543/ in your web browser, you should now be able to
 search and find terms that appear in the documentation you have
 uploaded.
+
+
+.. _opensearch:
+
+OpenSearch
+----------
+
+Dokang has basic support for OpenSearch. That means that you can set
+up an instance of Dokang as a custom search source (like Google and
+Wikipedia in Firefox).

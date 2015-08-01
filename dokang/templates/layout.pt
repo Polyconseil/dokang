@@ -8,6 +8,7 @@
   <link rel="icon" tal:attributes="href api.static_url('static/img/favicon.ico')" type="image/x-icon"/>
   <link rel="stylesheet" type="text/css"
         tal:attributes="href api.static_url('static/css/style.css')"/>
+  <link rel="search" type="application/opensearchdescription+xml" title="Dokang" href="${ api.route_url('opensearch') }"/>
 </head>
 <body>
 

@@ -10,6 +10,7 @@ import zipfile
 
 from pyramid.httpexceptions import HTTPMovedPermanently, HTTPMethodNotAllowed, HTTPForbidden, HTTPBadRequest
 from pyramid.renderers import get_renderer
+from pyramid.response import Response
 
 import wtforms
 from wtforms import validators as wtvalidators
@@ -51,6 +52,28 @@ def search(request):
         'hits': hits
     }
 
+
+def opensearch(request):
+    """Return OpenSearch description file."""
+    settings = request.registry.settings
+    params = {
+        'name': settings['dokang.opensearch.name'],
+        'description': settings['dokang.opensearch.description'],
+        'favicon': request.static_url('dokang:static/img/favicon.ico'),
+        'search_url': request.route_url('search'),
+    }
+    return Response(
+        body="""<?xml version="1.0" encoding="UTF-8" ?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>%(name)s</ShortName>
+  <Description>%(description)s</Description>
+  <Image>%(favicon)s</Image>
+  <InputEncoding>UTF-8</InputEncoding>
+  <OutputEncoding>UTF-8</OutputEncoding>
+  <Url type="text/html" template="%(search_url)s?query={searchTerms}"/>a
+</OpenSearchDescription>""" % params,
+        content_type=b'application/opensearchdescription+xml'
+    )
 
 class TemplateApi(object):
     """
