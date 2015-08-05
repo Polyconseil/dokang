@@ -21,9 +21,18 @@ metadata, like the title.
 Installation
 ------------
 
-In a brand new virtual environment, install with ``pip install
-Dokang``. If you have cloned the `Git repository`_, use ``pip
-install -r requirements.txt`` instead.
+In a brand new virtual environment, install with:
+
+.. code:: bash
+
+    pip install Dokang
+
+If you have cloned the `Git repository`_, use this instead:
+
+.. code:: bash
+
+    pip install -r requirements.txt
+
 
 .. _Git repository: https://github.com/Polyconseil/Dokang
 
@@ -100,14 +109,6 @@ command-line client:
    If the index already exists and you would like to start from
    scratch, use the ``--force`` option to overwrite the index. The
    index will be **deleted and recreated empty**.
-
-Providing the configuration file in every command may be
-cumbersome. To work around that, you may define a ``DOKANG_SETTINGS``
-environment variable and then omit the ``--settings`` option:
-
-.. code:: bash
-
-   $ export DOKANG_SETTINGS=/path/to/your/ini.file
 
 For further details about the arguments and options of the
 command line client, see :ref:`advanced_cli_ref`.
