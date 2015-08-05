@@ -1,7 +1,7 @@
 Dokang
 ======
 
-.. include:: ../README
+.. include:: ../README.rst
 
 
 Topics
