@@ -17,7 +17,7 @@ def load_requirements(path, dev=True):
 
 
 here = os.path.abspath(os.path.dirname(__file__))
-README = open(os.path.join(here, 'README')).read().strip()
+README = open(os.path.join(here, 'README.rst')).read().strip()
 CHANGES = open(os.path.join(here, 'CHANGES.txt')).read().strip()
 
 setup(name='Dokang',

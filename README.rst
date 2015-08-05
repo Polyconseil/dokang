@@ -1,5 +1,8 @@
 .. Edit with care, this file is included in the documentation.
 
+Dokang
+#######
+
 Dokang is a lightweight documentation repository. It is a web
 application that:
 
