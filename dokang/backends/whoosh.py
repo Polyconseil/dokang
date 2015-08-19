@@ -26,8 +26,6 @@ class WhooshIndexer(object):
         If an index already exists, it is deleted and recreated from
         scratch.
         """
-        # FIXME: use NGRAM instead of TEXT?
-        # FIXME: play with 'field_boost' parameter
         schema = Schema(
             uid=ID(stored=False, unique=True),
             path=ID(stored=True),
