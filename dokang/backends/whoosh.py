@@ -95,9 +95,6 @@ class WhooshSearcher(object):
         parser = MultifieldParser(('title', 'content'), self.index.schema)
         query = parser.parse(query_string)
         with self.index.searcher() as searcher:
-            # FIXME: is there any point in yielding here? There will
-            # not be a large number of hits anyway, so it would make
-            # sense to return a simple list instead.
             for hit in searcher.search(query, limit=limit):
                 yield {
                     'path': hit['path'],
