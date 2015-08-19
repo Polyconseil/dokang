@@ -59,7 +59,7 @@ def search(settings, query):
     hits = list(api.search(index_path, query, limit=None))
     compat.print_to_stdout("Found %d results." % len(hits))
     for hit in hits:
-        compat.print_to_stdout("[{set}] {title}".format(**hit))
+        compat.print_to_stdout("[{set}] [{path}] {title}".format(**hit))
 
 
 def parse_args(args):

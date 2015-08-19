@@ -31,6 +31,9 @@ Next version (not yet released)
 - Exclude more Sphinx-generated files like ``objects.inv`` and
   ``searchindex.js``.
 
+- Display path of files in the search results of the command line
+  client.
+
 
 Dokang 0.6.1 (2015-03-03)
 -------------------------
