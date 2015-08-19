@@ -28,6 +28,9 @@ Next version (not yet released)
 
 - Add basic support for OpenSearch.
 
+- Exclude more Sphinx-generated files like ``objects.inv`` and
+  ``searchindex.js``.
+
 
 Dokang 0.6.1 (2015-03-03)
 -------------------------

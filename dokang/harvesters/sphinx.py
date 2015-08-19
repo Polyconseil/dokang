@@ -75,7 +75,13 @@ def sphinx_config(harvester=SphinxHarvester, include=None, exclude=None, **exten
     if include is None:
         include = ('_download', )
     if exclude is None:
-        exclude = ('^genindex.html$', '^search.html$', '%s?_.*' % os.path.sep)
+        exclude = (
+            '^genindex.html$',
+            '^objects.inv$',
+            '^search.html$',
+            '^searchindex.js$',
+            '%s?_.*' % os.path.sep
+        )
     config = {
         'include': include,
         'exclude': exclude,
