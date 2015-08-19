@@ -6,7 +6,6 @@ import logging
 import os
 import re
 
-from .base import Harvester  # pylint: disable=unused-import
 from .html import html_config, HtmlHarvester  # pylint: disable=unused-import
 from .sphinx import (  # pylint: disable=unused-import
     sphinx_config, sphinx_rtd_config,

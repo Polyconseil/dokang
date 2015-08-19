@@ -8,7 +8,7 @@ import os
 
 from bs4 import BeautifulSoup
 
-from dokang.harvesters import Harvester
+from dokang.harvesters.base import Harvester
 
 
 logger = logging.getLogger(__name__)

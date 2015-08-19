@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 
 from bs4 import BeautifulSoup
 
-from dokang.harvesters import Harvester
+from dokang.harvesters.base import Harvester
 
 
 class HtmlHarvester(Harvester):
