@@ -49,7 +49,7 @@ def index_document_set(index_path, info, force=False):
             logger.debug('Marking indexed document "%s" for deletion.', relative_path)
             to_be_deleted.append(relative_path)
     if to_be_deleted:
-        indexer.delete_documents(to_be_deleted)
+        indexer.delete_documents(doc_set, to_be_deleted)
 
     # Index or update all documents, or ignore them if they did not
     # change.

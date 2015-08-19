@@ -34,6 +34,13 @@ Next version (not yet released)
 - Display path of files in the search results of the command line
   client.
 
+- Fix bug in document deletion. When a document was detected as
+  deleted from a document set (i.e. when a file was not present
+  anymore in the "upload" directory), the indexation process deleted
+  from the index *all* documents with the same path (for example
+  ``index.html``) in *all* document sets. The files themselves were
+  not deleted so the next indexation would add them back to the index.
+
 
 Dokang 0.6.1 (2015-03-03)
 -------------------------
