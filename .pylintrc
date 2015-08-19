@@ -12,7 +12,7 @@ profile=no
 
 # Add <file or directory> to the black list. It should be a base name, not a
 # path. You may set this option multiple times.
-ignore=migrations
+ignore=migrations,south_migrations
 
 # Pickle collected data for later comparisons.
 persistent=yes
@@ -35,31 +35,36 @@ load-plugins=
 # it should appear only once).
 # disabling C0325 : Unnecessary parens after a keyword
 disable=
-    invalid-name,
-    missing-docstring,
-    too-many-lines,
-    super-on-old-class,
-    no-member,
-    maybe-no-member,
-    locally-disabled,
-    file-ignored,
-    no-self-use,
+    abstract-class-little-used,
+    abstract-class-not-used,
+    attribute-defined-outside-init,
+    bad-builtin,
+    bad-continuation,
     duplicate-code,
-    too-many-ancestors,
-    too-many-instance-attributes,
+    file-ignored,
+    invalid-name,
+    locally-enabled,
+    locally-disabled,
+    maybe-no-member,
+    missing-docstring,
+    no-init,
+    no-member,
+    no-self-use,
+    old-style-class,
+    protected-access,
+    star-args,
+    super-on-old-class,
+    superfluous-parens,
     too-few-public-methods,
-    too-many-public-methods,
+    too-many-ancestors,
     too-many-arguments,
     too-many-branches,
+    too-many-instance-attributes,
+    too-many-lines,
     too-many-locals,
+    too-many-public-methods,
     too-many-statements,
-    bad-builtin,
-    star-args,
-    protected-access,
-    no-init,
-    unused-argument,
-    old-style-class,
-    superfluous-parens
+    unused-argument
 
 
 [REPORTS]
@@ -67,9 +72,6 @@ disable=
 # Set the output format. Available formats are text, parseable, colorized, msvs
 # (visual studio) and html
 output-format=text
-
-# Include message's id in output
-include-ids=yes
 
 # Put messages in a separate file for each module / package specified on the
 # command line instead of printing them on stdout. Reports (if any) will be
@@ -89,6 +91,10 @@ evaluation=10.0 - ((float(5 * error + warning + refactor + convention) / stateme
 # Add a comment according to your evaluation note. This is used by the global
 # evaluation report (RP0004).
 comment=no
+
+# Template used to display messages. This is a python new-style format string
+# used to format the message information. See doc for all details
+msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}"
 
 
 [BASIC]
