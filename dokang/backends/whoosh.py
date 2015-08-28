@@ -12,6 +12,7 @@ from whoosh.fields import ID, Schema, STORED, TEXT
 from whoosh.index import create_in, open_dir
 from whoosh.qparser import MultifieldParser
 from whoosh.query import And, Or, Term
+from whoosh.writing import AsyncWriter
 
 
 class WhooshIndexer(object):
@@ -48,7 +49,7 @@ class WhooshIndexer(object):
     def index_documents(self, documents):
         """Add or update documents in the index."""
         index = open_dir(self.index_path)
-        writer = index.writer()
+        writer = AsyncWriter(index)
         needs_commit = False
         for document in documents:
             needs_commit = True
@@ -67,7 +68,7 @@ class WhooshIndexer(object):
     def delete_documents(self, doc_set, paths):
         """Delete documents from the index."""
         index = open_dir(self.index_path)
-        writer = index.writer()
+        writer = AsyncWriter(index)
         query = And([
             Term('set', doc_set),
             Or([Term('path', path) for path in paths])

@@ -41,6 +41,10 @@ Next version (not yet released)
   ``index.html``) in *all* document sets. The files themselves were
   not deleted so the next indexation would add them back to the index.
 
+- Use an asynchronous index writer that allows multiple indexation to
+  be done concurrently. Without this, a ``whoosh.index.LockError``
+  exception is raised.
+
 
 Dokang 0.6.1 (2015-03-03)
 -------------------------
