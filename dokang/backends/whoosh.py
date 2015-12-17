@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2011-2015 Polyconseil SAS. All rights reserved.f
+# Copyright (c) Polyconseil SAS. All rights reserved.
 """Index and search backends for Whoosh."""
 
 from __future__ import absolute_import

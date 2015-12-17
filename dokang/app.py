@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2011-2015 Polyconseil SAS. All rights reserved.f
+# Copyright (c) Polyconseil SAS. All rights reserved.
 
 from pyramid.config import Configurator
 from pyramid.static import static_view

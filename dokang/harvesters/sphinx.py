@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2011-2015 Polyconseil SAS. All rights reserved.
+# Copyright (c) Polyconseil SAS. All rights reserved.
 
 from __future__ import unicode_literals
 

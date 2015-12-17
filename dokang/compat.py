@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2011-2015 Polyconseil SAS. All rights reserved.
+# Copyright (c) Polyconseil SAS. All rights reserved.
 """Python 2 compatibility layer."""
 
 from __future__ import print_function
