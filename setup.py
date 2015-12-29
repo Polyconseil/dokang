@@ -8,23 +8,17 @@ _version_file = open(os.path.join(os.path.dirname(__file__), 'dokang', 'version.
 VERSION = re.compile(r"^VERSION = '(.*?)'", re.S).match(_version_file.read()).group(1)
 
 
-def load_requirements(path, dev=True):
-    reqs = []
-    with open(path) as fp:
-        reqs = [line for line in fp.read().split("\n")
-            if line and not line.startswith(("-r", "#"))]
-    return reqs
+def read(filename):
+    with open(filename) as fp:
+        return fp.read().strip()
 
 
-here = os.path.abspath(os.path.dirname(__file__))
-README = open(os.path.join(here, 'README.rst')).read().strip()
-CHANGES = open(os.path.join(here, 'CHANGES.txt')).read().strip()
-
-setup(name='Dokang',
-      version=VERSION,
-      description="Lightweight web documentation repository with a search engine",
-      long_description=README + '\n\n' + CHANGES,
-      classifiers=[
+setup(
+    name='Dokang',
+    version=VERSION,
+    description="Lightweight web documentation repository with a search engine",
+    long_description='%s\n\n%s' % (read('README.rst'), read('CHANGES.txt')),
+    classifiers=[
         "Development Status :: 4 - Beta",
         "Environment :: Console",
         "License :: OSI Approved :: BSD License",
@@ -37,22 +31,30 @@ setup(name='Dokang',
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
         "Topic :: Text Processing :: Markup :: HTML",
+    ],
+    author="Polyconseil",
+    author_email="opensource+dokang@polyconseil.fr",
+    url='https://dokang.readthedocs.org/',
+    keywords='documentation repository search engine',
+    packages=find_packages(),
+    include_package_data=True,
+    zip_safe=False,
+    install_requires=[
+        'beautifulsoup4==4.4.0',
+        'Chameleon==2.22',
+        'pyramid==1.5.7',
+        'pyramid_chameleon==0.3',
+        'Whoosh==2.7.0',
+        'WTForms==2.0.2',
+    ],
+    tests_require=[l for l in read('requirements_dev.txt').splitlines() if not l.startswith(('-', '#'))],
+    test_suite='tests',
+    entry_points={
+        'paste.app_factory': [
+            'main=dokang.app:make_app',
         ],
-      author="Polyconseil",
-      author_email="opensource+dokang@polyconseil.fr",
-      url='https://dokang.readthedocs.org/',
-      keywords='documentation repository search engine',
-      packages=find_packages(),
-      include_package_data=True,
-      zip_safe=False,
-      install_requires=load_requirements('requirements.txt'),
-      tests_require=load_requirements('requirements_dev.txt', dev=True),
-      test_suite='tests',
-      entry_points="""\
-      [paste.app_factory]
-      main = dokang.app:make_app
-
-      [console_scripts]
-      dokang = dokang.cli:main
-      """,
-      )
+        'console_scripts': [
+            'dokang=dokang.cli:main',
+        ],
+    },
+)
