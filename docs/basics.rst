@@ -33,7 +33,7 @@ If you have cloned the `Git repository`_, use this instead:
 
 .. code:: bash
 
-    pip install -r requirements.txt
+    pip install -e .
 
 
 .. _Git repository: https://github.com/Polyconseil/Dokang
