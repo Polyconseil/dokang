@@ -11,5 +11,8 @@ install:
     - pip install --editable .
     - pip freeze
 
+script:
+    nosetests
+
 notifications:
     email: true
