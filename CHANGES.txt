@@ -1,8 +1,8 @@
 Change log
 ==========
 
-Next version (not yet released)
--------------------------------
+Dokang 0.7.0 (2016-02-01)
+-------------------------
 
 - Add support of Python 3.5.
 
