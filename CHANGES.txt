@@ -4,6 +4,8 @@ Change log
 Next version (not yet released)
 -------------------------------
 
+- Add support of Python 3.5.
+
 - When initializing the index, ``dokang init`` now creates all needed
   intermediate-level directories.
 
