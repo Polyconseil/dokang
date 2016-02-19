@@ -48,7 +48,7 @@ def search(request):
         'api': TemplateApi(request),
         'query': raw_query,
         'only_doc_set': only_doc_set,
-        'doc_sets': sorted(doc_sets.values(), key=lambda d: d['title'].lower()),
+        'doc_sets': sorted(doc_sets.values(), key=lambda d: d['id'].lower()),
         'hits': hits
     }
 
@@ -74,6 +74,7 @@ def opensearch(request):
 </OpenSearchDescription>""" % params,
         content_type=b'application/opensearchdescription+xml'
     )
+
 
 class TemplateApi(object):
     """

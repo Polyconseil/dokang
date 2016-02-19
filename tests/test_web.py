@@ -28,8 +28,11 @@ INDEX_PATH = get_data_path('whoosh_test_index')
 TEST_DOC_SETS = (
     # Minimal configuration with just what we need to test the web
     # frontend.
-    {'test': {
-      'title': "Title of the test doc set"}
+    {
+        'test': {
+          'id': 'doc_set_id',
+          'title': "Title of the test doc set",
+        }
     }
 )
 

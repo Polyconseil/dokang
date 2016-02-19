@@ -2,6 +2,7 @@
 # Copyright (c) Polyconseil SAS. All rights reserved.
 from __future__ import unicode_literals
 
+import json
 import os
 import os.path
 
@@ -21,9 +22,17 @@ def doc_set(settings, uploaded):
 
     uploaded = uploaded.decode('utf-8')
     uploaded_path = os.path.join(upload_dir, uploaded)
+
+    title = None
+    info_file = os.path.join(uploaded_path, '.dokang')
+    if os.path.exists(info_file):
+        with open(info_file) as fp:
+            info = json.load(fp)
+            title = info.get('title') if isinstance(info, dict) else None
+
     return {
         'id': uploaded,
-        'title': uploaded,
+        'title': title or uploaded,
         'path': uploaded_path,
         'harvester': harvester(),
     }

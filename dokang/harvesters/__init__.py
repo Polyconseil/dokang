@@ -2,6 +2,7 @@
 # Copyright (c) Polyconseil SAS. All rights reserved.
 
 import hashlib
+import json
 import logging
 import os
 import re
@@ -88,6 +89,9 @@ def harvest_set(base_dir, doc_set, config, hashes, force):
                 logger.exception("Could not index document %s", path)
             else:
                 if doc:
+                    if relative_path == 'index.html':
+                        with open(os.path.join(base_dir, '.dokang'), 'w') as fp:
+                            json.dump({'title': doc['title']}, fp)
                     doc['path'] = relative_path
                     doc['set'] = doc_set
                     doc['hash'] = current_hash
