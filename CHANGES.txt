@@ -9,6 +9,7 @@ Next version (not yet released)
 Dokang 0.8.1 (2016-02-24)
 -------------------------
 
+- Fix packaging.
 
 
 Dokang 0.8.0 (2016-02-24)
