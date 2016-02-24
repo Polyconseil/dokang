@@ -3,6 +3,7 @@
 
 from __future__ import unicode_literals
 import base64
+import itertools
 import os
 import shutil
 import tempfile
@@ -44,11 +45,16 @@ def search(request):
             hit['doc_set_title'] = doc_sets[hit['set']]['title']
     else:
         hits = None
+
+    sorted_doc_sets = sorted(doc_sets.values(), key=lambda d: d['title'].lower())
     return {
         'api': TemplateApi(request),
         'query': raw_query,
         'only_doc_set': only_doc_set,
-        'doc_sets': sorted(doc_sets.values(), key=lambda d: d['id'].lower()),
+        'doc_sets': [
+            (k.upper(), list(v))
+            for k, v in itertools.groupby(sorted_doc_sets, key=lambda d: d['title'][0].lower())
+        ],
         'hits': hits
     }
 

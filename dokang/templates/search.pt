@@ -5,27 +5,38 @@
     <form class="jump-form">
       <select onchange="window.location = this[this.selectedIndex].value;">
         <option>Jump to documentation&hellip;</option>
-        <option tal:repeat="doc_set doc_sets"
-                value="${ api.doc_url(doc_set['id']) }">${ doc_set['title'] }</option>
+        <optgroup tal:repeat="doc_group doc_sets" label="${ doc_group[0] }">
+            <option tal:repeat="doc_set doc_group[1]"
+                value="${ api.doc_url(doc_set['id']) }"
+                selected="${ only_doc_set == doc_set['id'] }">${ doc_set['title'] }
+            </option>
+        </optgroup>
       </select>
     </form>
     <form  class="search-form" method="get">
       <input type="text" name="query" value="${ query }" autofocus>
       in <select name="doc_set">
-        <option value="">all document sets</option>
-        <option tal:repeat="doc_set doc_sets"
-                value="${ doc_set['id'] }"
-                selected="${ only_doc_set == doc_set['id'] }">${ doc_set['title'] }</option>
-      </select>
+            <option value="">all document sets</option>
+            <optgroup tal:repeat="doc_group doc_sets" label="${ doc_group[0] }">
+                <option tal:repeat="doc_set doc_group[1]"
+                    value="${ doc_set['id'] }"
+                    selected="${ only_doc_set == doc_set['id'] }">${ doc_set['title'] }
+                </option>
+            </optgroup>
+        </select>
+
       <input type="submit" value="search">
     </form>
 </div>
 
-<ul class="doc-sets" tal:condition="not query">
-  <li tal:repeat="doc_set doc_sets">
-    <a href="${ api.doc_url(doc_set['id']) }">${ doc_set['title'] }</a>
-  </li>
-</ul>
+<div tal:condition="not query" tal:repeat="doc_group doc_sets">
+    <h2 tal:content="doc_group[0]"></h2>
+    <ul class="doc-sets">
+      <li tal:repeat="doc_set doc_group[1]">
+        <a href="${ api.doc_url(doc_set['id']) }">${ doc_set['title'] }</a>
+      </li>
+    </ul>
+</div>
 
 <div class="hits" tal:condition="query">
   <p><strong>${ len(hits) }</strong> hits.</p>

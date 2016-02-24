@@ -16,6 +16,10 @@ body {
     font-size: 100%; /* 16px */
 }
 
+h2 {
+    padding-left: 1.5ex;
+}
+
 p {
     margin-bottom: 1em;
 }
