@@ -173,11 +173,11 @@ def doc_upload(request):  # Route is not activated when dokang.uploaded_docs.dir
         shutil.rmtree(project_dir)
     zip_file.extractall(project_dir)
 
-    # update doc sets
-    doc_set_info = settings['dokang.doc_sets'][project] = utils.doc_set(settings, project)
-
     # index new doc set
     index_path = settings['dokang.index_path']
-    api.index_document_set(index_path, doc_set_info, force=False)
+    api.index_document_set(index_path, utils.doc_set(settings, project), force=False)
+
+    # update doc sets
+    settings['dokang.doc_sets'][project] = utils.doc_set(settings, project)
 
     return HTTPMovedPermanently(request.route_url('catch_all_doc_view', subpath=project))
