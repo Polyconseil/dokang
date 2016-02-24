@@ -1,8 +1,8 @@
 Change log
 ==========
 
-Next version (not yet released)
--------------------------------
+Dokang 0.8.2 (2016-02-24)
+-------------------------
 
 - Update doc set title after uploading a new version of the documentation.
 
