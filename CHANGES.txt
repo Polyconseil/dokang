@@ -1,6 +1,12 @@
 Change log
 ==========
 
+Next version (not yet released)
+-------------------------------
+
+- Use the title of the index page as the title of each doc set.
+- Group doc sets by the first letter of their title.
+
 Dokang 0.7.0 (2016-02-01)
 -------------------------
 
@@ -67,7 +73,7 @@ Dokang 0.6.0 (2015-03-03)
   Before this commit, if the upload dir was named "uploaded", the
   documentation would be available at ``/uploaded/<doc_set_id>``. This
   was a bit too verbose.
-    
+
   With this (backward-incompatible) change, the documentation is now
   available at ``/<doc_set_id>``.
 
