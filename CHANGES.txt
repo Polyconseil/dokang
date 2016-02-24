@@ -1,8 +1,8 @@
 Change log
 ==========
 
-Next version (not yet released)
--------------------------------
+Dokang 0.8.0 (2016-02-24)
+-------------------------
 
 - Use the title of the index page as the title of each doc set.
 - Group doc sets by the first letter of their title.
