@@ -177,7 +177,7 @@ def doc_upload(request):  # Route is not activated when dokang.uploaded_docs.dir
     index_path = settings['dokang.index_path']
     api.index_document_set(index_path, utils.doc_set(settings, project), force=False)
 
-    # update doc sets
+    # update doc set information, especially its title (which is retrieve from the .dokang file created by indexer)
     settings['dokang.doc_sets'][project] = utils.doc_set(settings, project)
 
     return HTTPMovedPermanently(request.route_url('catch_all_doc_view', subpath=project))
