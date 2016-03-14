@@ -65,7 +65,6 @@ class TestWebFrontEnd(TestCase):
             'id': 'test',
             'title': 'Test documentation',
             'path': get_data_path('api'),
-            'url': 'http://docs.exemple.com/',
             'harvester': html_config()
         }
         api.index_document_set(INDEX_PATH, doc_set_info)

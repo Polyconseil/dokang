@@ -39,7 +39,6 @@ class TestApi(TestCase):
             'id': 'test',
             'title': 'Test documentation',
             'path': get_data_path('api'),
-            'url': 'http://docs.exemple.com/',
             'harvester': html_config()
         }
         api.index_document_set(self.index_path, doc_set_info)
