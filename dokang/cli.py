@@ -11,7 +11,7 @@ import shutil
 import sys
 
 from dokang import api
-from dokang.utils import load_doc_sets
+from dokang.utils import get_doc_sets
 from dokang.version import VERSION
 from dokang import compat
 
@@ -37,7 +37,7 @@ def init(settings, force):
 
 def index(settings, only_doc_set, force):
     index_path = settings['dokang.index_path']
-    doc_sets = settings['dokang.doc_sets']
+    doc_sets = get_doc_sets(settings)
     for doc_set, info in doc_sets.items():
         if only_doc_set is not None and only_doc_set != doc_set:
             continue
@@ -122,7 +122,6 @@ def load_settings(path):
     config.read(path)
     settings = dict(config.items('app:main'))
     logging.config.fileConfig(path)
-    settings = load_doc_sets(settings)
     return settings
 
 

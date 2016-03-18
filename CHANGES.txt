@@ -4,6 +4,16 @@ Change log
 Next version (not yet released)
 -------------------------------
 
+- Allow running simultaneous threads of Dokang web application.
+
+  Until now, Dokang updated its list of document sets at startup and
+  when a new document set was uploaded. Running multiple threads of
+  the web application was obviously not working great, as one thread
+  would not see any new document set if it was added by another
+  thread.
+
+  This limitation has now been lifted and Dokang web application can
+  run with multiple threads (for example with multiple uWSGI workers).
 
 
 Dokang 0.8.2 (2016-02-24)

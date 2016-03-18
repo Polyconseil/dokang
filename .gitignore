@@ -7,6 +7,8 @@
 # Testing and co
 reports/
 .tox
+.dokang
+
 # Build-related files
 .coverage
 *.egg-info

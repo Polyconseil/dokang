@@ -7,10 +7,17 @@ import os
 import os.path
 
 from dokang import api
+from . import compat
 
 
 def get_harvester(fqn):
-    module_fqn, function_fqn = fqn.rsplit(b'.', 1)
+    module_fqn, function_fqn = fqn.rsplit('.', 1)
+
+    # Hack around https://bugs.python.org/issue21720
+    if compat.PY2 and not isinstance(module_fqn, bytes):
+        module_fqn = module_fqn.encode()
+        function_fqn = function_fqn.encode()
+
     module = __import__(module_fqn, fromlist=[function_fqn])
     return getattr(module, function_fqn)
 
@@ -19,8 +26,6 @@ def doc_set(settings, uploaded):
 
     harvester = get_harvester(settings['dokang.uploaded_docs.harvester'])
     upload_dir = settings.get('dokang.uploaded_docs.dir')
-
-    uploaded = uploaded.decode('utf-8')
     uploaded_path = os.path.join(upload_dir, uploaded)
 
     title = None
@@ -38,10 +43,9 @@ def doc_set(settings, uploaded):
     }
 
 
-def load_doc_sets(settings):
+def get_doc_sets(settings):
     """
-    Given a settings dictionary with the path of the doc sets file,
-    replace the path (in-place) with the doc sets themselves.
+    Get doc sets using path of doc sets file defined in settings.
     """
     index_path = settings['dokang.index_path']
     if not os.path.exists(index_path):
@@ -52,8 +56,10 @@ def load_doc_sets(settings):
     if not os.path.exists(upload_dir):
         os.makedirs(upload_dir)
 
-    sets = settings['dokang.doc_sets'] = {}
-    for uploaded in os.listdir(upload_dir):
-        sets[uploaded] = doc_set(settings, uploaded)
-
-    return settings
+    return {
+        uploaded: doc_set(settings, uploaded)
+        for uploaded in (
+            x.decode('utf-8') if isinstance(x, bytes) else x
+            for x in os.listdir(upload_dir)
+        )
+    }

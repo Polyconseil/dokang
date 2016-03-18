@@ -25,16 +25,7 @@ def get_data_path(*components):
 
 
 INDEX_PATH = get_data_path('whoosh_test_index')
-TEST_DOC_SETS = (
-    # Minimal configuration with just what we need to test the web
-    # frontend.
-    {
-        'test': {
-          'id': 'doc_set_id',
-          'title': "Title of the test doc set",
-        }
-    }
-)
+UPLOAD_PATH = get_data_path('upload')
 
 
 class TestWebFrontEnd(TestCase):
@@ -52,7 +43,8 @@ class TestWebFrontEnd(TestCase):
     def setUp(self):
         self.config = testing.setUp()
         self.config.include('pyramid_chameleon')
-        self.config.registry.settings['dokang.doc_sets'] = TEST_DOC_SETS
+        self.config.registry.settings['dokang.uploaded_docs.harvester'] = 'dokang.harvesters.html_config'
+        self.config.registry.settings['dokang.uploaded_docs.dir'] = UPLOAD_PATH
         self.config.registry.settings['dokang.index_path'] = INDEX_PATH
 
     def tearDown(self):
@@ -64,7 +56,7 @@ class TestWebFrontEnd(TestCase):
         doc_set_info = {
             'id': 'test',
             'title': 'Test documentation',
-            'path': get_data_path('api'),
+            'path': get_data_path('upload', 'test'),
             'harvester': html_config()
         }
         api.index_document_set(INDEX_PATH, doc_set_info)

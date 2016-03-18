@@ -38,7 +38,7 @@ class TestApi(TestCase):
         doc_set_info = {
             'id': 'test',
             'title': 'Test documentation',
-            'path': get_data_path('api'),
+            'path': get_data_path('upload', 'test'),
             'harvester': html_config()
         }
         api.index_document_set(self.index_path, doc_set_info)

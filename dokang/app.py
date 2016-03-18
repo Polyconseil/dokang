@@ -4,12 +4,9 @@
 from pyramid.config import Configurator
 from pyramid.static import static_view
 
-from dokang.utils import load_doc_sets
-
 
 def make_app(global_settings, **settings):
     """Set up and return the WSGI application."""
-    settings = load_doc_sets(settings)
     config = Configurator(settings=settings)
 
     # Third-party includes

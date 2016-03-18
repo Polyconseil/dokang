@@ -31,7 +31,7 @@ def get_hit_limit(settings):
 
 def search(request):
     settings = request.registry.settings
-    doc_sets = settings['dokang.doc_sets']
+    doc_sets = utils.get_doc_sets(settings)
     hit_limit = get_hit_limit(settings)
     raw_query = request.GET.get('query')
     only_doc_set = request.GET.get('doc_set')
@@ -176,8 +176,5 @@ def doc_upload(request):  # Route is not activated when dokang.uploaded_docs.dir
     # index new doc set
     index_path = settings['dokang.index_path']
     api.index_document_set(index_path, utils.doc_set(settings, project), force=False)
-
-    # update doc set information, especially its title (which is retrieve from the .dokang file created by indexer)
-    settings['dokang.doc_sets'][project] = utils.doc_set(settings, project)
 
     return HTTPMovedPermanently(request.route_url('catch_all_doc_view', subpath=project))
