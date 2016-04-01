@@ -13,7 +13,6 @@ reports/
 .coverage
 *.egg-info
 *.egg
-setup.cfg
 build/
 dist/
 
