@@ -1,7 +1,7 @@
 Change log
 ==========
 
-0.9.1 (unreleased)
+0.9.1 (2016-04-01)
 ------------------
 
 - Fix packaging
