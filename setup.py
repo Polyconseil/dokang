@@ -3,9 +3,7 @@ import re
 
 from setuptools import setup, find_packages
 
-# Do not try to import the package to get its version.
-_version_file = open(os.path.join(os.path.dirname(__file__), 'dokang', 'version.py'))
-VERSION = re.compile(r"^VERSION = '(.*?)'", re.S).match(_version_file.read()).group(1)
+from dokang import __version__
 
 
 def read(filename):
@@ -15,9 +13,9 @@ def read(filename):
 
 setup(
     name='Dokang',
-    version=VERSION,
+    version='0.9.0',
     description="Lightweight web documentation repository with a search engine",
-    long_description='%s\n\n%s' % (read('README.rst'), read('CHANGES.txt')),
+    long_description='%s\n\n%s' % (read('README.rst'), read('CHANGES.rst')),
     classifiers=[
         "Development Status :: 4 - Beta",
         "Environment :: Console",
@@ -48,8 +46,6 @@ setup(
         'Whoosh==2.7.0',
         'WTForms==2.0.2',
     ],
-    tests_require=[l for l in read('requirements_dev.txt').splitlines() if not l.startswith(('-', '#'))],
-    test_suite='tests',
     entry_points={
         'paste.app_factory': [
             'main=dokang.app:make_app',

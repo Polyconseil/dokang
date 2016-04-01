@@ -10,10 +10,10 @@ import os
 import shutil
 import sys
 
+from dokang import __version__
 from dokang import api
-from dokang.utils import get_doc_sets
-from dokang.version import VERSION
 from dokang import compat
+from dokang.utils import get_doc_sets
 
 logger = logging.getLogger(__name__)
 
@@ -67,7 +67,7 @@ def parse_args(args):
         prog="Dokang",
         description='A lightweight search engine for HTML documents.'
     )
-    parser.add_argument('--version', action='version', version='%%(prog)s %s' % VERSION)
+    parser.add_argument('--version', action='version', version='%%(prog)s %s' % __version__)
     parser.add_argument('--settings', action='store', help="Path of the setting file.", metavar='PATH')
 
     subparsers = parser.add_subparsers()
