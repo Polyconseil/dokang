@@ -1,9 +1,4 @@
-import os
-import re
-
 from setuptools import setup, find_packages
-
-from dokang import __version__
 
 
 def read(filename):
@@ -46,6 +41,12 @@ setup(
         'Whoosh==2.7.0',
         'WTForms==2.0.2',
     ],
+    tests_require=[
+        l
+        for l in read('requirements_dev.txt').splitlines()
+        if not l.startswith(('-', '#')) and l.strip()
+    ],
+    test_suite='tests',
     entry_points={
         'paste.app_factory': [
             'main=dokang.app:make_app',
