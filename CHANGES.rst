@@ -1,8 +1,8 @@
 Change log
 ==========
 
-Next version (not yet released)
--------------------------------
+0.9.0 (2016-04-01)
+------------------
 
 - Allow running simultaneous threads of Dokang web application.
 
