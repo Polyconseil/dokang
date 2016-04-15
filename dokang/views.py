@@ -4,6 +4,7 @@
 from __future__ import unicode_literals
 import base64
 import itertools
+import json
 import os
 import shutil
 import tempfile
@@ -167,11 +168,15 @@ def doc_upload(request):  # Route is not activated when dokang.uploaded_docs.dir
 
     project = form.data['name']
     project_dir = os.path.join(doc_dir, project)
+    metadata = utils.doc_set(settings, project)
 
     zip_file = zipfile.ZipFile(form.data['content'].file)
     if os.path.exists(project_dir):
         shutil.rmtree(project_dir)
     zip_file.extractall(project_dir)
+
+    with open(os.path.join(project_dir, '.dokang'), 'w') as fp:
+        json.dump({'title': metadata['title']}, fp)
 
     # index new doc set
     index_path = settings['dokang.index_path']
