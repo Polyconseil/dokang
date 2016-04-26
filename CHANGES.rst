@@ -1,7 +1,7 @@
 Change log
 ==========
 
-0.9.2 (unreleased)
+0.9.2 (2016-04-26)
 ------------------
 
 - Keep title when updating documentation.
