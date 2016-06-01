@@ -139,7 +139,7 @@ Then run it:
 
 See the documentation of Waitress for further details.
 
-.. _Waitress: http://waitress.readthedocs.org
+.. _Waitress: http://waitress.readthedocs.io
 
 
 Upload and index documentation

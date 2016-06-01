@@ -28,7 +28,7 @@ setup(
     ],
     author="Polyconseil",
     author_email="opensource+dokang@polyconseil.fr",
-    url='https://dokang.readthedocs.org/',
+    url='https://dokang.readthedocs.io/',
     keywords='documentation repository search engine',
     packages=find_packages(),
     include_package_data=True,
