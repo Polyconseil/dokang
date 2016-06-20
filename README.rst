@@ -41,3 +41,24 @@ We (`Polyconseil`_) use it to search through the `Sphinx
 projects. However, it may be used to host any kind of documentation.
 
 .. _Polyconseil: https://www.polyconseil.fr/
+
+
+Build and run your own docker image
+-----------------------------------
+
+To build your own image:
+
+.. code:: bash
+
+    $ docker build -t dokang .
+
+To run the image:
+
+.. code:: bash
+
+    $ docker run --rm -e DOKANG_UPLOAD_TOKEN=my_little_secret\
+      -e DOKANG_NAME='My docs'\
+      -e DOKANG_DESCRIPTION='Documentations of all my project'\
+      -e DOKANG_SERVER_TRUSTED_PROXY=129.14.12.1  # Optional: the IP address of the proxy to pass to waitress server's trusted_proxy
+
+Go to http://localhost:6543/ in your browser, you should see the list of documentations.
