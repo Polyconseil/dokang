@@ -4,7 +4,7 @@ Change log
 0.9.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add dockerfile.
 
 
 0.9.2 (2016-04-26)
