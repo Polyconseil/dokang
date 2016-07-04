@@ -151,7 +151,7 @@ def doc_upload(request):  # Route is not activated when dokang.uploaded_docs.dir
         token is None or
         request.authorization is None or
         request.authorization[0] != 'Basic' or
-        base64.b64decode(request.authorization[1]) != 'dokang:{0}'.format(token)
+        base64.b64decode(request.authorization[1]).decode('utf-8') != 'dokang:{0}'.format(token)
     )
     if bad_auth:
         raise HTTPForbidden()
