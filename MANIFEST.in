@@ -5,6 +5,7 @@ graft dokang
 
 prune docs
 prune tests
+prune docker
 
 global-exclude .py[cod] __pycache__ .so
 
