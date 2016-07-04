@@ -1,7 +1,7 @@
 Change log
 ==========
 
-0.9.3 (unreleased)
+0.9.3 (2016-07-04)
 ------------------
 
 - Add dockerfile.
