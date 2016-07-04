@@ -56,9 +56,11 @@ To run the image:
 
 .. code:: bash
 
-    $ docker run --rm -e DOKANG_UPLOAD_TOKEN=my_little_secret\
-      -e DOKANG_NAME='My docs'\
-      -e DOKANG_DESCRIPTION='Documentations of all my project'\
+    $ docker run --rm -e DOKANG_UPLOAD_TOKEN=my_little_secret \
+      -e DOKANG_NAME='My docs' \
+      -e DOKANG_DESCRIPTION='Documentations of all my projects' \
       -e DOKANG_SERVER_TRUSTED_PROXY=129.14.12.1  # Optional: the IP address of the proxy to pass to waitress server's trusted_proxy
+      -p 8080:6543
+      dokang
 
-Go to http://localhost:6543/ in your browser, you should see the list of documentations.
+Go to http://localhost:8080/ in your browser, you should see the list of documentations.

@@ -9,7 +9,7 @@ from dokang_pdf import PdfHarvester
 config_default_values = {
     'DOKANG_UPLOAD_TOKEN': None,  # Token is required
     'DOKANG_NAME': 'My docs',
-    'DOKANG_DESCRIPTION': 'Documentations of all my project',
+    'DOKANG_DESCRIPTION': 'Documentations of all my projects',
     'DOKANG_SERVER_TRUSTED_PROXY': '',  # The IP address of the proxy to pass to waitress server's trusted_proxy
 }
 
