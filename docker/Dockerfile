@@ -1,6 +1,7 @@
 FROM alpine
 MAINTAINER Polyconseil <opensource+dokang@polyconseil.fr>
 
+ENV PYTHONPATH=/home/dokang
 VOLUME ['/home/dokang/data']
 EXPOSE 6543
 
