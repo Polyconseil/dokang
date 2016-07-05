@@ -4,7 +4,7 @@ Change log
 0.9.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- fix dockerfile.
 
 
 0.9.3 (2016-07-04)
