@@ -1,7 +1,7 @@
 Change log
 ==========
 
-0.9.4 (unreleased)
+0.9.4 (2016-07-05)
 ------------------
 
 - fix dockerfile.

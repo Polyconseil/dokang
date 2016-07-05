@@ -8,7 +8,7 @@ def read(filename):
 
 setup(
     name='Dokang',
-    version='0.9.4.dev0',
+    version='0.9.4',
     description="Lightweight web documentation repository with a search engine",
     long_description='%s\n\n%s' % (read('README.rst'), read('CHANGES.rst')),
     classifiers=[
