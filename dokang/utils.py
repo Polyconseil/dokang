@@ -49,7 +49,10 @@ def get_doc_sets(settings):
     """
     index_path = settings['dokang.index_path']
     if not os.path.exists(index_path):
-        os.makedirs(os.path.dirname(index_path), exist_ok=True)
+        try:
+            os.makedirs(os.path.dirname(index_path))
+        except OSError:  # It's ok if the parent dir exists already
+            pass
         api.initialize_index(index_path)
 
     upload_dir = settings['dokang.uploaded_docs.dir']
