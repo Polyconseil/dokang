@@ -4,7 +4,7 @@ Change log
 0.9.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Improve data repository initialization.
 
 
 0.9.4 (2016-07-05)
