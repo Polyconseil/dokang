@@ -1,7 +1,7 @@
 Change log
 ==========
 
-0.9.5 (unreleased)
+0.9.5 (2016-12-14)
 ------------------
 
 - Improve data repository initialization.
