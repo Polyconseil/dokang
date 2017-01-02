@@ -79,7 +79,7 @@ def opensearch(request):
   <OutputEncoding>UTF-8</OutputEncoding>
   <Url type="text/html" template="%(search_url)s?query={searchTerms}"/>a
 </OpenSearchDescription>""" % params,
-        content_type=b'application/opensearchdescription+xml'
+        content_type='application/opensearchdescription+xml'
     )
 
 

@@ -78,3 +78,15 @@ class TestWebFrontEnd(TestCase):
         hits = context['hits']
         self.assertEqual(len(hits), 1)
         self.assertEqual(hits[0]['doc_set_title'], "Title of the test doc set")
+
+    def test_opensearch(self):
+        self.config.registry.settings['dokang.opensearch.name'] = 'Testing docs'
+        self.config.registry.settings['dokang.opensearch.description'] = 'Testing docs'
+        # The "opensearch" view returns links to the (static) favicon...
+        self.config.add_static_view('static', 'dokang:static')
+        # ... and a "search" route.
+        self.config.add_route('search', '/')
+
+        request = testing.DummyRequest()
+        response = views.opensearch(request)
+        self.assertEqual(response.content_type, 'application/opensearchdescription+xml')

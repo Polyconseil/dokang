@@ -4,7 +4,7 @@ Change log
 0.9.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix OpenSearch view in Python 3.
 
 
 0.9.5 (2016-12-14)
