@@ -59,7 +59,7 @@ with Dokang, see the :doc:`api` chapter.
 External Python packages may also provide their own harvesters. Here
 is a list of the known ones:
 
-- PDF harvester: `dokang_pdf <https://pypi.python.org/pypi/dokang_pdf>`_.
+- PDF harvester: `dokang_pdf <https://pypi.org/pypi/dokang_pdf>`_.
 
 
 .. _advanced_cli_ref:
