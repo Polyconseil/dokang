@@ -1,9 +1,8 @@
-FROM alpine
+FROM python:3.8-alpine
 MAINTAINER Polyconseil <opensource+dokang@polyconseil.fr>
 
 EXPOSE 6543
 
-RUN apk add --no-cache --update python3
 RUN adduser -u 998 -D dokang
 
 COPY ./files /home/dokang/

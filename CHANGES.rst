@@ -4,6 +4,9 @@ Change log
 0.9.6 (unreleased)
 ------------------
 
+- Bump dependencies
+- Support of Python 3.7 and 3.8
+- Drop support of Python <=3.6
 - Fix OpenSearch view in Python 3.
 
 
