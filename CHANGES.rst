@@ -1,8 +1,8 @@
 Change log
 ==========
 
-0.9.6 (unreleased)
-------------------
+0.10.0 (2023-02-09)
+-------------------
 
 - Bump dependencies
 - Support of Python 3.7 and 3.8
