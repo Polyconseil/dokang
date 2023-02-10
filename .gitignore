@@ -4,10 +4,10 @@
 *.pyo
 *.mo
 
-# Testing and co
+# Testing, docs and co
 reports/
-.tox
 .dokang
+docs/_build
 
 # Build-related files
 .coverage
