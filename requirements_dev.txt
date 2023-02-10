@@ -1,8 +1,19 @@
 -e .
 
-coverage>=3.7.1
-nose>=1.3.1
-pylint>=1.2.0
-Sphinx>=1.2.2
-sphinx_rtd_theme>=0.4.3
+# Testing
+pytest
+pytest-cov
+
+# Docs
+sphinx
+sphinx_rtd_theme
+
+# Quality
+check-manifest
+check-oldies[toml]
+isort[pyproject]
+pylint
+twine
+
+# Release
 zest.releaser[recommended]
