@@ -2,6 +2,7 @@
 # Copyright (c) Polyconseil SAS. All rights reserved.
 
 from __future__ import unicode_literals
+
 import base64
 import itertools
 import json
@@ -10,10 +11,12 @@ import shutil
 import tempfile
 import zipfile
 
-from pyramid.httpexceptions import HTTPMovedPermanently, HTTPMethodNotAllowed, HTTPForbidden, HTTPBadRequest
+from pyramid.httpexceptions import HTTPBadRequest
+from pyramid.httpexceptions import HTTPForbidden
+from pyramid.httpexceptions import HTTPMethodNotAllowed
+from pyramid.httpexceptions import HTTPMovedPermanently
 from pyramid.renderers import get_renderer
 from pyramid.response import Response
-
 import wtforms
 from wtforms import validators as wtvalidators
 

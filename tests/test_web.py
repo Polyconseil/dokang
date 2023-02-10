@@ -5,6 +5,8 @@ from __future__ import unicode_literals
 
 import os
 import shutil
+
+
 try:  # Python 2.6 compatibility
     from unittest2 import TestCase
 except ImportError:
@@ -13,8 +15,8 @@ except ImportError:
 from pyramid import testing
 
 from dokang import api
-from dokang.harvesters import html_config
 from dokang import views
+from dokang.harvesters import html_config
 
 
 def get_data_path(*components):

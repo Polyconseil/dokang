@@ -8,10 +8,16 @@ from collections import defaultdict
 import os
 import shutil
 
-from whoosh.fields import ID, Schema, STORED, TEXT
-from whoosh.index import create_in, open_dir
+from whoosh.fields import ID
+from whoosh.fields import STORED
+from whoosh.fields import Schema
+from whoosh.fields import TEXT
+from whoosh.index import create_in
+from whoosh.index import open_dir
 from whoosh.qparser import MultifieldParser
-from whoosh.query import And, Or, Term
+from whoosh.query import And
+from whoosh.query import Or
+from whoosh.query import Term
 from whoosh.writing import AsyncWriter
 
 

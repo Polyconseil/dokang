@@ -6,8 +6,8 @@ from __future__ import unicode_literals
 import logging
 import os
 
-from dokang.backends import whoosh
 from dokang import harvesters
+from dokang.backends import whoosh
 
 
 logger = logging.getLogger(__name__)

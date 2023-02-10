@@ -7,6 +7,7 @@ from __future__ import print_function
 import os
 import sys
 
+
 PY2 = sys.version[0] == '2'
 
 # pylint: disable=redefined-builtin, invalid-name, import-error, unused-import, no-name-in-module

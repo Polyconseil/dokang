@@ -3,8 +3,10 @@ import os
 from string import Template
 from subprocess import call
 
-from dokang.harvesters import sphinx_rtd_config
 from dokang_pdf import PdfHarvester
+
+from dokang.harvesters import sphinx_rtd_config
+
 
 config_default_values = {
     'DOKANG_UPLOAD_TOKEN': None,  # Token is required

@@ -7,11 +7,12 @@ import logging
 import os
 import re
 
-from .html import html_config, HtmlHarvester  # pylint: disable=unused-import
-from .sphinx import (  # pylint: disable=unused-import
-    sphinx_config, sphinx_rtd_config,
-    SphinxHarvester, ReadTheDocsSphinxHarvester
-)
+from .html import HtmlHarvester  # pylint: disable=unused-import
+from .html import html_config
+from .sphinx import ReadTheDocsSphinxHarvester  # pylint: disable=unused-import
+from .sphinx import SphinxHarvester
+from .sphinx import sphinx_config
+from .sphinx import sphinx_rtd_config
 
 
 logger = logging.getLogger(__name__)
