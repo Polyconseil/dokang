@@ -21,7 +21,7 @@ def doc_set(settings, uploaded):
     title = None
     info_file = os.path.join(uploaded_path, '.dokang')
     if os.path.exists(info_file):
-        with open(info_file) as fp:
+        with open(info_file, encoding="utf-8") as fp:
             info = json.load(fp)
             title = info.get('title') if isinstance(info, dict) else None
 

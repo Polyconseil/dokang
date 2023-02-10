@@ -18,7 +18,7 @@ from whoosh.query import Term
 from whoosh.writing import AsyncWriter
 
 
-class WhooshIndexer(object):
+class WhooshIndexer:
     """Encapsulate indexation through Whoosh."""
 
     def __init__(self, index_path):
@@ -80,7 +80,7 @@ class WhooshIndexer(object):
         writer.commit()
 
 
-class WhooshSearcher(object):
+class WhooshSearcher:
     """Encapsulate search through Whoosh."""
 
     def __init__(self, index_path):

@@ -34,7 +34,7 @@ class TestApi:
         }
         api.index_document_set(self.index_path, doc_set_info)
 
-        assert list(api.search(self.index_path, "ShouldNotBeIndexed")) == []
+        assert not list(api.search(self.index_path, "ShouldNotBeIndexed"))
         hits = list(api.search(self.index_path, "ShouldBeIndexed"))
         assert len(hits) == 1
         assert hits[0]['path'] == 'test1.html'
@@ -43,11 +43,11 @@ class TestApi:
         assert hits[0]['kind'] == 'HTML'
         hits = list(api.search(self.index_path, "ShouldBeIndexed set:test"))
         assert len(hits) == 1
-        assert list(api.search(self.index_path, "ShouldBeIndexed set:unknown")) == []
+        assert not list(api.search(self.index_path, "ShouldBeIndexed set:unknown"))
 
         api.clear_document_set(self.index_path, 'unknown')
         hits = list(api.search(self.index_path, "ShouldBeIndexed"))
         assert len(hits) == 1
 
         api.clear_document_set(self.index_path, doc_set_info['id'])
-        assert list(api.search(self.index_path, "ShouldBeIndexed")) == []
+        assert not list(api.search(self.index_path, "ShouldBeIndexed"))

@@ -3,7 +3,7 @@ from setuptools import setup
 
 
 def read(filename):
-    with open(filename) as fp:
+    with open(filename, encoding="utf-8") as fp:
         return fp.read().strip()
 
 

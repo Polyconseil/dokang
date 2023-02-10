@@ -13,3 +13,48 @@ known_tests = ["tests"]
 skip = [
     "docs/conf.py",
 ]
+
+[tool.pylint.MASTER]
+# Include info messages into score so that pylint fails if we have
+# such messages (e.g. "useless-suppression").
+evaluation = "max(0, 0 if fatal else 10.0 - ((float(5 * error + warning + refactor + convention + info) / statement) * 10))"
+load-plugins = [
+    "pylint_strict_informational",
+]
+
+[tool.pylint.FORMAT]
+max-line-length = 120
+
+[tool.pylint."MESSAGES CONTROL"]
+enable = [
+    "use-symbolic-message-instead",
+    "useless-suppression",
+]
+
+disable = [
+    "attribute-defined-outside-init",
+    "consider-using-f-string",
+    "cyclic-import",
+    "duplicate-code",
+    "fixme",
+    "file-ignored",
+    "import-outside-toplevel",
+    "invalid-name",
+    "locally-disabled",
+    "missing-docstring",
+    "no-member",
+    "protected-access",
+    "too-few-public-methods",
+    "too-many-ancestors",
+    "too-many-arguments",
+    "too-many-branches",
+    "too-many-instance-attributes",
+    "too-many-lines",
+    "too-many-locals",
+    "too-many-public-methods",
+    "too-many-statements",
+    "ungrouped-imports",
+    "unnecessary-lambda-assignment",
+    "unused-argument",
+    "wrong-import-order",
+]

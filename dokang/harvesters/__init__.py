@@ -7,9 +7,9 @@ import logging
 import os
 import re
 
-from .html import HtmlHarvester  # pylint: disable=unused-import
+from .html import HtmlHarvester
 from .html import html_config
-from .sphinx import ReadTheDocsSphinxHarvester  # pylint: disable=unused-import
+from .sphinx import ReadTheDocsSphinxHarvester
 from .sphinx import SphinxHarvester
 from .sphinx import sphinx_config
 from .sphinx import sphinx_rtd_config
@@ -89,7 +89,7 @@ def harvest_set(base_dir, doc_set, config, hashes, force):
             else:
                 if doc:
                     if relative_path == 'index.html':
-                        with open(os.path.join(base_dir, '.dokang'), 'w') as fp:
+                        with open(os.path.join(base_dir, '.dokang'), 'w', encoding="utf-8") as fp:
                             json.dump({'title': doc['title']}, fp)
                     doc['path'] = relative_path
                     doc['set'] = doc_set

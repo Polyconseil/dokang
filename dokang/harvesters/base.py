@@ -4,7 +4,7 @@
 import abc
 
 
-class Harvester(object):
+class Harvester:
     """An abstract class for all harvesters."""
 
     __metaclass__ = abc.ABCMeta

@@ -82,7 +82,7 @@ def opensearch(request):
     )
 
 
-class TemplateApi(object):
+class TemplateApi:
     """
     Provide a master template and various information and utilities that can be used in any template.
 
@@ -125,16 +125,16 @@ class DocUploadForm(wtforms.Form):
         if not zipfile.is_zipfile(data_file):
             raise wtvalidators.ValidationError('ZIP file is not a zipfile')
 
-        zip_file = zipfile.ZipFile(data_file)
-        members = zip_file.namelist()
-        if 'index.html' not in members:
-            raise wtvalidators.ValidationError('Top-level "index.html" missing in the ZIP file')
+        with zipfile.ZipFile(data_file) as zip_file:
+            members = zip_file.namelist()
+            if 'index.html' not in members:
+                raise wtvalidators.ValidationError('Top-level "index.html" missing in the ZIP file')
 
         base_dir = tempfile.mkdtemp()
         try:
             for name in members:
                 if not os.path.normpath(os.path.join(base_dir, name)).startswith(base_dir):
-                    raise wtvalidators.ValidationError('Invalid path name %s in the ZIP file', name)
+                    raise wtvalidators.ValidationError(f'Invalid path name {name} in the ZIP file')
         finally:
             os.rmdir(base_dir)
 
@@ -169,12 +169,12 @@ def doc_upload(request):  # Route is not activated when dokang.uploaded_docs.dir
     project_dir = os.path.join(doc_dir, project)
     metadata = utils.doc_set(settings, project)
 
-    zip_file = zipfile.ZipFile(form.data['content'].file)
-    if os.path.exists(project_dir):
-        shutil.rmtree(project_dir)
-    zip_file.extractall(project_dir)
+    with zipfile.ZipFile(form.data['content'].file) as zip_file:
+        if os.path.exists(project_dir):
+            shutil.rmtree(project_dir)
+        zip_file.extractall(project_dir)
 
-    with open(os.path.join(project_dir, '.dokang'), 'w') as fp:
+    with open(os.path.join(project_dir, '.dokang'), 'w', encoding="utf-8") as fp:
         json.dump({'title': metadata['title']}, fp)
 
     # index new doc set
