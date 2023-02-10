@@ -1,17 +1,18 @@
 global-exclude *.py[cod]
 
+include CHANGES.rst
 include LICENSE.txt
 include README.rst
-include CHANGES.rst
 
 graft src/dokang
 
+prune docker
 prune docs
 prune tests
-prune docker
 
+exclude .pylintrc
+exclude .readthedocs.yaml
+exclude dev.ini
 exclude Makefile
 exclude release.conf
-exclude .pylintrc
-exclude dev.ini
 exclude requirements_dev.txt
