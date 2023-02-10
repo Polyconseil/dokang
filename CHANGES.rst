@@ -1,10 +1,10 @@
 Change log
 ==========
 
-Next version (not yet released)
--------------------------------
+0.10.1 (2023-02-10)
+-------------------
 
-
+- Fix selection of options (on the main page)
 
 0.10.0 (2023-02-09)
 -------------------
