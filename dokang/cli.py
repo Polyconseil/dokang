@@ -1,9 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) Polyconseil SAS. All rights reserved.
-
-from __future__ import unicode_literals
-
 import argparse
+import configparser
 import logging
 import logging.config
 import os
@@ -12,7 +9,6 @@ import sys
 
 from dokang import __version__
 from dokang import api
-from dokang import compat
 from dokang.utils import get_doc_sets
 
 
@@ -58,9 +54,9 @@ def search(settings, query):
         query = query.decode(sys.stdin.encoding)
     index_path = settings['dokang.index_path']
     hits = list(api.search(index_path, query, limit=None))
-    compat.print_to_stdout("Found %d results." % len(hits))
+    print("Found %d results." % len(hits))
     for hit in hits:
-        compat.print_to_stdout("[{set}] [{path}] {title}".format(**hit))
+        print("[{set}] [{path}] {title}".format(**hit))
 
 
 def parse_args(args):
@@ -119,7 +115,7 @@ def parse_args(args):
 
 def load_settings(path):
     here = os.path.abspath(os.path.dirname(path))
-    config = compat.ConfigParser(defaults={'here': here})
+    config = configparser.ConfigParser(defaults={'here': here})
     config.read(path)
     settings = dict(config.items('app:main'))
     logging.config.fileConfig(path)

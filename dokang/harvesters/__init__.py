@@ -52,8 +52,6 @@ def harvest_set(base_dir, doc_set, config, hashes, force):
     This function is a generator. It yields dictionaries. Each
     dictionary should represent a document and contain the following
     keys in addition to the keys returned by the harvester itself.
-    Each text-like value should be a string (in Python 3) or a unicode
-    object (in Python 2).
 
     path
         The path of the document relative to the root of the document

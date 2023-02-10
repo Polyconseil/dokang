@@ -1,24 +1,13 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) Polyconseil SAS. All rights reserved.
-from __future__ import unicode_literals
-
 import json
 import os
 import os.path
 
 from dokang import api
 
-from . import compat
-
 
 def get_harvester(fqn):
     module_fqn, function_fqn = fqn.rsplit('.', 1)
-
-    # Hack around https://bugs.python.org/issue21720
-    if compat.PY2 and not isinstance(module_fqn, bytes):
-        module_fqn = module_fqn.encode()
-        function_fqn = function_fqn.encode()
-
     module = __import__(module_fqn, fromlist=[function_fqn])
     return getattr(module, function_fqn)
 

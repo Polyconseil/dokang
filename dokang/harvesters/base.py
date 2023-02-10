@@ -15,9 +15,7 @@ class Harvester(object):
 
         This method must be implemented by subclasses. It should
         return None if the document is not to be indexed, or a
-        dictionary that has the following keys. Each text-like value
-        should be a string (in Python 3) or a unicode object (in
-        Python 2).
+        dictionary that has the following keys.
 
         title
             The title of the document.
