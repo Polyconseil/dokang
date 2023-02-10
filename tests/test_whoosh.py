@@ -2,12 +2,6 @@
 import os
 import shutil
 
-
-try:  # Python 2.6 compatibility
-    from unittest2 import TestCase
-except ImportError:
-    from unittest import TestCase
-
 from dokang import api
 from dokang.harvesters import html_config
 
@@ -19,10 +13,9 @@ def get_data_path(*components):
         *components)
 
 
-class TestApi(TestCase):
+class TestApi:
 
-    def tearDown(self):
-        super(TestApi, self).tearDown()
+    def teardown_method(self, method):
         if os.path.exists(self.index_path):
             shutil.rmtree(self.index_path)
 
@@ -41,20 +34,20 @@ class TestApi(TestCase):
         }
         api.index_document_set(self.index_path, doc_set_info)
 
-        self.assertEqual(list(api.search(self.index_path, "ShouldNotBeIndexed")), [])
+        assert list(api.search(self.index_path, "ShouldNotBeIndexed")) == []
         hits = list(api.search(self.index_path, "ShouldBeIndexed"))
-        self.assertEqual(len(hits), 1)
-        self.assertEqual(hits[0]['path'], 'test1.html')
-        self.assertEqual(hits[0]['title'], 'The title')
-        self.assertEqual(hits[0]['set'], 'test')
-        self.assertEqual(hits[0]['kind'], 'HTML')
+        assert len(hits) == 1
+        assert hits[0]['path'] == 'test1.html'
+        assert hits[0]['title'] == 'The title'
+        assert hits[0]['set'] == 'test'
+        assert hits[0]['kind'] == 'HTML'
         hits = list(api.search(self.index_path, "ShouldBeIndexed set:test"))
-        self.assertEqual(len(hits), 1)
-        self.assertEqual(list(api.search(self.index_path, "ShouldBeIndexed set:unknown")), [])
+        assert len(hits) == 1
+        assert list(api.search(self.index_path, "ShouldBeIndexed set:unknown")) == []
 
         api.clear_document_set(self.index_path, 'unknown')
         hits = list(api.search(self.index_path, "ShouldBeIndexed"))
-        self.assertEqual(len(hits), 1)
+        assert len(hits) == 1
 
         api.clear_document_set(self.index_path, doc_set_info['id'])
-        self.assertEqual(list(api.search(self.index_path, "ShouldBeIndexed")), [])
+        assert list(api.search(self.index_path, "ShouldBeIndexed")) == []

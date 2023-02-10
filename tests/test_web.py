@@ -2,12 +2,6 @@
 import os
 import shutil
 
-
-try:  # Python 2.6 compatibility
-    from unittest2 import TestCase
-except ImportError:
-    from unittest import TestCase
-
 from pyramid import testing
 
 from dokang import api
@@ -26,26 +20,24 @@ INDEX_PATH = get_data_path('whoosh_test_index')
 UPLOAD_PATH = get_data_path('upload')
 
 
-class TestWebFrontEnd(TestCase):
+class TestWebFrontEnd:
 
     @classmethod
-    def setUpClass(cls):
-        super(TestWebFrontEnd, cls).setUpClass()
+    def setup_class(cls):
         cls._prepare_index()
 
     @classmethod
-    def tearDownClass(cls):
-        super(TestWebFrontEnd, cls).tearDownClass()
+    def teardown_class(cls):
         shutil.rmtree(INDEX_PATH)
 
-    def setUp(self):
+    def setup_method(self, method):
         self.config = testing.setUp()
         self.config.include('pyramid_chameleon')
         self.config.registry.settings['dokang.uploaded_docs.harvester'] = 'dokang.harvesters.html_config'
         self.config.registry.settings['dokang.uploaded_docs.dir'] = UPLOAD_PATH
         self.config.registry.settings['dokang.index_path'] = INDEX_PATH
 
-    def tearDown(self):
+    def teardown_method(self):
         testing.tearDown()
 
     @classmethod
@@ -62,20 +54,20 @@ class TestWebFrontEnd(TestCase):
     def test_search(self):
         request = testing.DummyRequest()
         context = views.search(request)
-        self.assertEqual(context['hits'], None)
+        assert context['hits'] is None
 
         request = testing.DummyRequest(params={
             'query': 'ShouldBeIndexed',
             'doc_set': 'not-the-right-docset'})
         context = views.search(request)
-        self.assertEqual(context['hits'], [])
+        assert context['hits'] == []
 
         request = testing.DummyRequest(params={
             'query': 'ShouldBeIndexed'})
         context = views.search(request)
         hits = context['hits']
-        self.assertEqual(len(hits), 1)
-        self.assertEqual(hits[0]['doc_set_title'], "Title of the test doc set")
+        assert len(hits) == 1
+        assert hits[0]['doc_set_title'] == "Title of the test doc set"
 
     def test_opensearch(self):
         self.config.registry.settings['dokang.opensearch.name'] = 'Testing docs'
@@ -87,4 +79,4 @@ class TestWebFrontEnd(TestCase):
 
         request = testing.DummyRequest()
         response = views.opensearch(request)
-        self.assertEqual(response.content_type, 'application/opensearchdescription+xml')
+        assert response.content_type == 'application/opensearchdescription+xml'
