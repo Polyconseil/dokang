@@ -21,7 +21,7 @@ metadata, like the title.
 Installation
 ------------
 
-Dokang is compatible with Python 2 (>= 2.7) and Python 3 (>= 3.3).
+Dokang is compatible with Python 3 only (>= 3.7).
 
 In a brand new virtual environment, install with:
 
