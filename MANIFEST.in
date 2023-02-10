@@ -1,15 +1,17 @@
-include LICENSE.txt README.rst CHANGES.rst
-include requirements*.txt
+global-exclude *.py[cod]
 
-graft dokang
+include LICENSE.txt
+include README.rst
+include CHANGES.rst
+
+graft src/dokang
 
 prune docs
 prune tests
 prune docker
 
-global-exclude .py[cod] __pycache__ .so
-
 exclude Makefile
 exclude release.conf
 exclude .pylintrc
 exclude dev.ini
+exclude requirements_dev.txt
