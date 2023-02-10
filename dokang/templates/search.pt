@@ -6,10 +6,18 @@
       <select onchange="window.location = this[this.selectedIndex].value;">
         <option>Jump to documentation&hellip;</option>
         <optgroup tal:repeat="doc_group doc_sets" label="${ doc_group[0] }">
-            <option tal:repeat="doc_set doc_group[1]"
-                value="${ api.doc_url(doc_set['id']) }"
-                selected="${ only_doc_set == doc_set['id'] }">${ doc_set['title'] }
-            </option>
+            <div tal:repeat="doc_set doc_group[1]" tal:switch="only_doc_set == doc_set['id']">
+                <option
+                    tal:case="True"
+                    value="${ api.doc_url(doc_set['id']) }" selected
+                    >${ doc_set['title'] }
+                </option>
+                <option
+                    tal:case="False"
+                    value="${ api.doc_url(doc_set['id']) }"
+                >${ doc_set['title'] }
+                </option>
+            </div>
         </optgroup>
       </select>
     </form>
@@ -18,10 +26,18 @@
       in <select name="doc_set">
             <option value="">all document sets</option>
             <optgroup tal:repeat="doc_group doc_sets" label="${ doc_group[0] }">
-                <option tal:repeat="doc_set doc_group[1]"
-                    value="${ doc_set['id'] }"
-                    selected="${ only_doc_set == doc_set['id'] }">${ doc_set['title'] }
-                </option>
+                <div tal:repeat="doc_set doc_group[1]" tal:switch="only_doc_set == doc_set['id']">
+                    <option
+                        tal:case="True"
+                        value="${ doc_set['id'] }" selected
+                    >${ doc_set['title'] }
+                    </option>
+                    <option
+                        tal:case="False"
+                        value="${ doc_set['id'] }"
+                    >${ doc_set['title'] }
+                    </option>
+                </div>
             </optgroup>
         </select>
 
